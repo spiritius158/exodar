@@ -40,7 +40,7 @@ const services = [
 ]
 
 const servers = [
-  "Nightslayer (PvP)", "Dreamscythe (PvE)", "Thunderstrike (PvE)",
+  "Spineshatter (PvP)", "Nightslayer (PvP)", "Dreamscythe (PvE)", "Thunderstrike (PvE)",
 ]
 
 const boostTypes = [
