@@ -1179,6 +1179,7 @@ export const characters: TbcCharacter[] = [
 const allClasses = ["All", ...Array.from(new Set(characters.map((c) => c.className))).sort()]
 const allFactions = ["All", "Horde", "Alliance"]
 const allTiers = ["All", "T4", "Pre-Raid", "PvP"]
+const allServers = ["All", ...Array.from(new Set(characters.map((c) => c.server))).sort()]
 
 const factionColors = {
   Horde: "text-red-400 bg-red-500/10 border-red-500/30",
@@ -1220,8 +1221,8 @@ export function CharacterMarketplace() {
   const [classFilter, setClassFilter] = useState("All")
   const [factionFilter, setFactionFilter] = useState("All")
   const [tierFilter, setTierFilter] = useState("All")
+  const [serverFilter, setServerFilter] = useState("All")
   const [sortBy, setSortBy] = useState<"price-asc" | "price-desc" | "tier">("tier")
-  const [showFilters, setShowFilters] = useState(false)
   const [visibleCount, setVisibleCount] = useState(24)
 
   const loadMore = useCallback(() => {
@@ -1238,7 +1239,8 @@ export function CharacterMarketplace() {
       const matchClass = classFilter === "All" || c.className === classFilter
       const matchFaction = factionFilter === "All" || c.faction === factionFilter
       const matchTier = tierFilter === "All" || c.tier === tierFilter
-      return matchSearch && matchClass && matchFaction && matchTier
+      const matchServer = serverFilter === "All" || c.server === serverFilter
+      return matchSearch && matchClass && matchFaction && matchTier && matchServer
     })
 
     if (sortBy === "price-asc") result.sort((a, b) => a.price - b.price)
@@ -1251,85 +1253,91 @@ export function CharacterMarketplace() {
     return result
   }, [search, classFilter, factionFilter, tierFilter, sortBy])
 
-  const activeFilterCount = [classFilter !== "All", factionFilter !== "All", tierFilter !== "All"].filter(Boolean).length
+  const activeFilterCount = [classFilter !== "All", factionFilter !== "All", tierFilter !== "All", serverFilter !== "All"].filter(Boolean).length
 
   return (
     <div>
-      {/* Search and filter bar */}
-      <div className="mb-6 flex flex-col gap-4">
-        <div className="flex gap-3">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-parchment/30" />
-            <Input
-              value={search}
-              onChange={(e) => { setSearch(e.target.value); setVisibleCount(24) }}
-              placeholder="Search by class, race, spec, or server..."
-              className="border-stone bg-stone-dark pl-10 text-parchment placeholder:text-parchment/30"
-            />
-            {search && (
-              <button onClick={() => { setSearch(""); setVisibleCount(24) }} className="absolute right-3 top-1/2 -translate-y-1/2 text-parchment/40 hover:text-parchment">
-                <X className="h-4 w-4" />
-              </button>
-            )}
-          </div>
-          <button
-            onClick={() => setShowFilters(!showFilters)}
-            className={cn(
-              "flex items-center gap-2 rounded-lg border px-4 py-2 text-xs font-bold tracking-wider uppercase transition-all",
-              showFilters || activeFilterCount > 0
-                ? "border-gold/40 bg-gold/10 text-gold"
-                : "border-stone bg-stone-dark text-parchment/50 hover:border-gold/30"
-            )}
-          >
-            <Filter className="h-4 w-4" />
-            Filters
+      {/* Search bar */}
+      <div className="mb-4">
+        <div className="relative">
+          <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-parchment/30" />
+          <Input
+            value={search}
+            onChange={(e) => { setSearch(e.target.value); setVisibleCount(24) }}
+            placeholder="Search by class, race, spec, or server..."
+            className="border-stone bg-stone-dark py-3 pl-10 text-parchment placeholder:text-parchment/30"
+          />
+          {search && (
+            <button onClick={() => { setSearch(""); setVisibleCount(24) }} className="absolute right-3 top-1/2 -translate-y-1/2 text-parchment/40 hover:text-parchment">
+              <X className="h-4 w-4" />
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Filter panel - always visible */}
+      <div className="mb-6 rounded-xl border border-gold/15 bg-gradient-to-b from-stone-dark/80 to-stone-dark/40 p-5">
+        <div className="mb-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Filter className="h-4 w-4 text-gold/60" />
+            <span className="text-xs font-bold tracking-wider text-gold/70 uppercase">Filter Characters</span>
             {activeFilterCount > 0 && (
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-gold text-[10px] font-black text-deep-black">
-                {activeFilterCount}
+              <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-gold px-1.5 text-[10px] font-black text-deep-black">
+                {activeFilterCount} active
               </span>
             )}
-          </button>
+          </div>
+          {activeFilterCount > 0 && (
+            <button
+              onClick={() => { setClassFilter("All"); setFactionFilter("All"); setTierFilter("All"); setServerFilter("All"); setVisibleCount(24) }}
+              className="rounded-md border border-red-500/20 bg-red-500/5 px-3 py-1 text-[11px] font-bold tracking-wider text-red-400/70 transition-all hover:border-red-500/40 hover:bg-red-500/10 hover:text-red-400"
+            >
+              Clear All
+            </button>
+          )}
         </div>
 
-        {/* Expanded filters */}
-        {showFilters && (
-          <div className="flex flex-wrap gap-3 rounded-xl border border-stone bg-stone-dark/50 p-4">
-            {/* Class filter */}
-            <div className="flex flex-col gap-1.5">
-              <span className="text-[10px] font-bold tracking-wider text-parchment/40 uppercase">Class</span>
-              <div className="flex flex-wrap gap-1.5">
-                {allClasses.map((c) => (
-                  <button
-                    key={c}
-                    onClick={() => { setClassFilter(c); setVisibleCount(24) }}
-                    className={cn(
-                      "rounded-md px-2.5 py-1 text-[11px] font-bold tracking-wider transition-all",
-                      classFilter === c
-                        ? "bg-gold/20 text-gold border border-gold/40"
-                        : "bg-stone-dark border border-stone text-parchment/50 hover:border-gold/20"
-                    )}
-                  >
-                    {c}
-                  </button>
-                ))}
-              </div>
+        <div className="flex flex-col gap-4">
+          {/* Server filter */}
+          <div className="flex flex-col gap-2">
+            <span className="text-[10px] font-bold tracking-wider text-parchment/50 uppercase">Server</span>
+            <div className="flex flex-wrap gap-2">
+              {allServers.map((s) => (
+                <button
+                  key={s}
+                  onClick={() => { setServerFilter(s); setVisibleCount(24) }}
+                  className={cn(
+                    "rounded-lg px-3.5 py-1.5 text-xs font-bold tracking-wide transition-all",
+                    serverFilter === s
+                      ? "bg-fel-green/15 text-fel-green-glow border border-fel-green/40 shadow-[0_0_10px_rgba(57,211,83,0.1)]"
+                      : "bg-stone-dark border border-stone text-parchment/50 hover:border-fel-green/20 hover:text-parchment/70"
+                  )}
+                >
+                  {s}
+                </button>
+              ))}
             </div>
+          </div>
 
+          <div className="h-px bg-stone/50" />
+
+          {/* Faction + Gear Tier row */}
+          <div className="flex flex-wrap gap-6">
             {/* Faction filter */}
-            <div className="flex flex-col gap-1.5">
-              <span className="text-[10px] font-bold tracking-wider text-parchment/40 uppercase">Faction</span>
-              <div className="flex gap-1.5">
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] font-bold tracking-wider text-parchment/50 uppercase">Faction</span>
+              <div className="flex gap-2">
                 {allFactions.map((f) => (
                   <button
                     key={f}
                     onClick={() => { setFactionFilter(f); setVisibleCount(24) }}
                     className={cn(
-                      "rounded-md px-2.5 py-1 text-[11px] font-bold tracking-wider transition-all",
+                      "rounded-lg px-3.5 py-1.5 text-xs font-bold tracking-wide transition-all",
                       factionFilter === f
-                        ? f === "Horde" ? "bg-red-500/20 text-red-400 border border-red-500/40"
-                          : f === "Alliance" ? "bg-blue-500/20 text-blue-400 border border-blue-500/40"
-                          : "bg-gold/20 text-gold border border-gold/40"
-                        : "bg-stone-dark border border-stone text-parchment/50 hover:border-gold/20"
+                        ? f === "Horde" ? "bg-red-500/15 text-red-400 border border-red-500/40 shadow-[0_0_10px_rgba(239,68,68,0.1)]"
+                          : f === "Alliance" ? "bg-blue-500/15 text-blue-400 border border-blue-500/40 shadow-[0_0_10px_rgba(59,130,246,0.1)]"
+                          : "bg-gold/15 text-gold border border-gold/40 shadow-[0_0_10px_rgba(201,168,76,0.1)]"
+                        : "bg-stone-dark border border-stone text-parchment/50 hover:border-gold/20 hover:text-parchment/70"
                     )}
                   >
                     {f}
@@ -1339,18 +1347,20 @@ export function CharacterMarketplace() {
             </div>
 
             {/* Tier filter */}
-            <div className="flex flex-col gap-1.5">
-              <span className="text-[10px] font-bold tracking-wider text-parchment/40 uppercase">Gear Tier</span>
-              <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] font-bold tracking-wider text-parchment/50 uppercase">Gear Tier</span>
+              <div className="flex flex-wrap gap-2">
                 {allTiers.map((t) => (
                   <button
                     key={t}
                     onClick={() => { setTierFilter(t); setVisibleCount(24) }}
                     className={cn(
-                      "rounded-md px-2.5 py-1 text-[11px] font-bold tracking-wider transition-all",
+                      "rounded-lg px-3.5 py-1.5 text-xs font-bold tracking-wide transition-all",
                       tierFilter === t
-                        ? "bg-gold/20 text-gold border border-gold/40"
-                        : "bg-stone-dark border border-stone text-parchment/50 hover:border-gold/20"
+                        ? t === "T4" ? "bg-purple-500/15 text-purple-400 border border-purple-500/40 shadow-[0_0_10px_rgba(168,85,247,0.1)]"
+                          : t === "PvP" ? "bg-red-500/15 text-red-400 border border-red-500/40 shadow-[0_0_10px_rgba(239,68,68,0.1)]"
+                          : "bg-gold/15 text-gold border border-gold/40 shadow-[0_0_10px_rgba(201,168,76,0.1)]"
+                        : "bg-stone-dark border border-stone text-parchment/50 hover:border-gold/20 hover:text-parchment/70"
                     )}
                   >
                     {t}
@@ -1360,9 +1370,9 @@ export function CharacterMarketplace() {
             </div>
 
             {/* Sort */}
-            <div className="flex flex-col gap-1.5">
-              <span className="text-[10px] font-bold tracking-wider text-parchment/40 uppercase">Sort By</span>
-              <div className="flex gap-1.5">
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] font-bold tracking-wider text-parchment/50 uppercase">Sort By</span>
+              <div className="flex gap-2">
                 {[
                   { value: "tier" as const, label: "Gear Tier" },
                   { value: "price-asc" as const, label: "Price Low" },
@@ -1372,10 +1382,10 @@ export function CharacterMarketplace() {
                     key={s.value}
                     onClick={() => setSortBy(s.value)}
                     className={cn(
-                      "rounded-md px-2.5 py-1 text-[11px] font-bold tracking-wider transition-all",
+                      "rounded-lg px-3.5 py-1.5 text-xs font-bold tracking-wide transition-all",
                       sortBy === s.value
-                        ? "bg-gold/20 text-gold border border-gold/40"
-                        : "bg-stone-dark border border-stone text-parchment/50 hover:border-gold/20"
+                        ? "bg-gold/15 text-gold border border-gold/40 shadow-[0_0_10px_rgba(201,168,76,0.1)]"
+                        : "bg-stone-dark border border-stone text-parchment/50 hover:border-gold/20 hover:text-parchment/70"
                     )}
                   >
                     {s.label}
@@ -1383,18 +1393,31 @@ export function CharacterMarketplace() {
                 ))}
               </div>
             </div>
-
-            {/* Clear all */}
-            {activeFilterCount > 0 && (
-              <button
-                onClick={() => { setClassFilter("All"); setFactionFilter("All"); setTierFilter("All"); setVisibleCount(24) }}
-                className="self-end rounded-md px-3 py-1 text-[11px] font-bold tracking-wider text-parchment/40 underline transition-colors hover:text-gold"
-              >
-                Clear All Filters
-              </button>
-            )}
           </div>
-        )}
+
+          <div className="h-px bg-stone/50" />
+
+          {/* Class filter - full row */}
+          <div className="flex flex-col gap-2">
+            <span className="text-[10px] font-bold tracking-wider text-parchment/50 uppercase">Class</span>
+            <div className="flex flex-wrap gap-2">
+              {allClasses.map((c) => (
+                <button
+                  key={c}
+                  onClick={() => { setClassFilter(c); setVisibleCount(24) }}
+                  className={cn(
+                    "rounded-lg px-3.5 py-1.5 text-xs font-bold tracking-wide transition-all",
+                    classFilter === c
+                      ? "bg-gold/15 text-gold border border-gold/40 shadow-[0_0_10px_rgba(201,168,76,0.1)]"
+                      : "bg-stone-dark border border-stone text-parchment/50 hover:border-gold/20 hover:text-parchment/70"
+                  )}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Results count */}
