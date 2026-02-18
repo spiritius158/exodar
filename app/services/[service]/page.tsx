@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { CharacterMarketplace } from "@/components/character-marketplace"
@@ -352,11 +353,18 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
               </h2>
               <div className="mx-auto mb-6 tbc-divider w-48" aria-hidden="true" />
               <p className="mx-auto max-w-lg text-sm leading-relaxed text-parchment/50">
-                60 hand-crafted Phase 1 characters across all TBC classes, races, and gear tiers.
-                Filter by class, faction, or gear level to find your perfect match.
+              160 hand-crafted Phase 1 characters across all TBC classes, races, and gear tiers.
+              Filter by class, faction, or gear level to find your perfect match.
               </p>
             </div>
-            <CharacterMarketplace />
+            <Suspense fallback={
+              <div className="flex flex-col items-center justify-center rounded-xl border border-stone bg-stone-dark/30 py-16 text-center">
+                <div className="mb-4 h-8 w-8 animate-spin rounded-full border-2 border-parchment/20 border-t-fel-orange-glow" />
+                <p className="text-xs text-parchment/40">Loading characters...</p>
+              </div>
+            }>
+              <CharacterMarketplace />
+            </Suspense>
           </div>
         </section>
       )}

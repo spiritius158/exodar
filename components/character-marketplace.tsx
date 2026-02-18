@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useCallback } from "react"
 import { Search, Filter, Shield, Star, ArrowRight, X } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
@@ -1222,6 +1222,11 @@ export function CharacterMarketplace() {
   const [tierFilter, setTierFilter] = useState("All")
   const [sortBy, setSortBy] = useState<"price-asc" | "price-desc" | "tier">("tier")
   const [showFilters, setShowFilters] = useState(false)
+  const [visibleCount, setVisibleCount] = useState(24)
+
+  const loadMore = useCallback(() => {
+    setVisibleCount((prev) => prev + 24)
+  }, [])
 
   const filtered = useMemo(() => {
     let result = characters.filter((c) => {
@@ -1257,12 +1262,12 @@ export function CharacterMarketplace() {
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-parchment/30" />
             <Input
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => { setSearch(e.target.value); setVisibleCount(24) }}
               placeholder="Search by class, race, spec, or server..."
               className="border-stone bg-stone-dark pl-10 text-parchment placeholder:text-parchment/30"
             />
             {search && (
-              <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-parchment/40 hover:text-parchment">
+              <button onClick={() => { setSearch(""); setVisibleCount(24) }} className="absolute right-3 top-1/2 -translate-y-1/2 text-parchment/40 hover:text-parchment">
                 <X className="h-4 w-4" />
               </button>
             )}
@@ -1296,7 +1301,7 @@ export function CharacterMarketplace() {
                 {allClasses.map((c) => (
                   <button
                     key={c}
-                    onClick={() => setClassFilter(c)}
+                    onClick={() => { setClassFilter(c); setVisibleCount(24) }}
                     className={cn(
                       "rounded-md px-2.5 py-1 text-[11px] font-bold tracking-wider transition-all",
                       classFilter === c
@@ -1317,7 +1322,7 @@ export function CharacterMarketplace() {
                 {allFactions.map((f) => (
                   <button
                     key={f}
-                    onClick={() => setFactionFilter(f)}
+                    onClick={() => { setFactionFilter(f); setVisibleCount(24) }}
                     className={cn(
                       "rounded-md px-2.5 py-1 text-[11px] font-bold tracking-wider transition-all",
                       factionFilter === f
@@ -1340,7 +1345,7 @@ export function CharacterMarketplace() {
                 {allTiers.map((t) => (
                   <button
                     key={t}
-                    onClick={() => setTierFilter(t)}
+                    onClick={() => { setTierFilter(t); setVisibleCount(24) }}
                     className={cn(
                       "rounded-md px-2.5 py-1 text-[11px] font-bold tracking-wider transition-all",
                       tierFilter === t
@@ -1382,7 +1387,7 @@ export function CharacterMarketplace() {
             {/* Clear all */}
             {activeFilterCount > 0 && (
               <button
-                onClick={() => { setClassFilter("All"); setFactionFilter("All"); setTierFilter("All") }}
+                onClick={() => { setClassFilter("All"); setFactionFilter("All"); setTierFilter("All"); setVisibleCount(24) }}
                 className="self-end rounded-md px-3 py-1 text-[11px] font-bold tracking-wider text-parchment/40 underline transition-colors hover:text-gold"
               >
                 Clear All Filters
@@ -1395,7 +1400,7 @@ export function CharacterMarketplace() {
       {/* Results count */}
       <div className="mb-4 flex items-center justify-between">
         <p className="text-xs text-parchment/40">
-          Showing <span className="font-bold text-parchment">{filtered.length}</span> of {characters.length} characters
+          Showing <span className="font-bold text-parchment">{Math.min(visibleCount, filtered.length)}</span> of {filtered.length} characters
         </p>
       </div>
 
@@ -1408,7 +1413,7 @@ export function CharacterMarketplace() {
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((char) => (
+          {filtered.slice(0, visibleCount).map((char) => (
             <article
               key={char.id}
               className={cn(
@@ -1520,6 +1525,18 @@ export function CharacterMarketplace() {
               </div>
             </article>
           ))}
+        </div>
+      )}
+
+      {/* Load More */}
+      {filtered.length > visibleCount && (
+        <div className="mt-8 flex justify-center">
+          <button
+            onClick={loadMore}
+            className="rounded-lg border border-fel-orange/30 bg-fel-orange/5 px-8 py-3 text-sm font-bold tracking-wider text-fel-orange-glow uppercase transition-all hover:border-fel-orange/60 hover:bg-fel-orange/10 hover:shadow-[0_0_20px_rgba(224,93,32,0.2)]"
+          >
+            Load More Characters ({filtered.length - visibleCount} remaining)
+          </button>
         </div>
       )}
     </div>
