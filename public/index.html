@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a0a0f" />
+  <title>Exodar Market - Premium WoW Services</title>
+  <meta name="description" content="Your trusted marketplace for World of Warcraft gold, character boosting, and premium accounts. Fast, secure, and reliable services." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== CSS RESET & BASE ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e4c76b;
+      --gold-dark: #8b6914;
+      --mana-blue: #3b82f6;
+      --mana-blue-glow: #60a5fa;
+      --arcane-purple: #7c3aed;
+      --arcane-purple-glow: #a78bfa;
+      --parchment: #e8dcc8;
+      --parchment-dark: #c4b59a;
+      --stone: #2a2a3e;
+      --stone-dark: #12121a;
+      --deep-black: #0a0a0f;
+    }
+
+    body {
+      font-family: 'Cinzel', Georgia, serif;
+      background: var(--deep-black);
+      color: var(--parchment);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; height: auto; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    ul { list-style: none; }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 16px; }
+    @media (min-width: 1024px) { .container { padding: 0 32px; } }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes pulse-glow { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+    @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+    /* ===== UTILITY CLASSES ===== */
+    .gold-shimmer {
+      background: linear-gradient(90deg, #8b6914, #c9a84c, #e4c76b, #c9a84c, #8b6914);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite;
+    }
+
+    .parchment-card {
+      background: linear-gradient(145deg, #1a1a2e 0%, #12121a 50%, #1a1a2e 100%);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.5), 0 0 20px rgba(59,130,246,0.08), 0 4px 20px rgba(0,0,0,0.6);
+    }
+
+    .mana-glow {
+      box-shadow: 0 0 10px rgba(59,130,246,0.3), 0 0 30px rgba(59,130,246,0.15), 0 0 60px rgba(124,58,237,0.1);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .divider-line {
+      height: 1px;
+      width: 48px;
+    }
+    .divider-line--gold { background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4)); }
+    .divider-line--gold-r { background: linear-gradient(90deg, rgba(201,168,76,0.4), transparent); }
+    .divider-line--blue { background: linear-gradient(90deg, transparent, rgba(59,130,246,0.4)); }
+    .divider-line--blue-r { background: linear-gradient(90deg, rgba(59,130,246,0.4), transparent); }
+    .divider-diamond {
+      width: 6px;
+      height: 6px;
+      transform: rotate(45deg);
+    }
+    .divider-diamond--gold { background: rgba(201,168,76,0.4); }
+    .divider-diamond--blue { background: rgba(59,130,246,0.4); }
+
+    .section-label {
+      display: inline-block;
+      margin-bottom: 16px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin-bottom: 16px;
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      color: var(--parchment);
+      text-wrap: balance;
+    }
+
+    .section-desc {
+      max-width: 512px;
+      margin: 0 auto;
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(232,220,200,0.5);
+    }
+    @media (min-width: 640px) { .section-desc { font-size: 16px; } }
+
+    .section-separator {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+    }
+    .section-separator--gold { background: linear-gradient(90deg, transparent, rgba(201,168,76,0.2), transparent); }
+    .section-separator--blue { background: linear-gradient(90deg, transparent, rgba(59,130,246,0.2), transparent); }
+
+    /* ===== SVG ICONS (inline) ===== */
+    .icon { display: inline-block; vertical-align: middle; }
+    .icon svg { width: 100%; height: 100%; }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      background: rgba(10,10,15,0.8);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
+    .navbar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    @media (min-width: 1024px) { .navbar__inner { padding: 12px 32px; } }
+
+    .navbar__logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .navbar__logo-icon {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      border: 1px solid rgba(201,168,76,0.4);
+      background: var(--stone-dark);
+    }
+    .navbar__logo-icon svg { width: 20px; height: 20px; color: var(--gold); fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .navbar__logo-text { display: flex; flex-direction: column; }
+    .navbar__logo-name { font-size: 14px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+    .navbar__logo-sub { font-size: 10px; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--mana-blue-glow); }
+
+    .navbar__links { display: none; align-items: center; gap: 4px; }
+    @media (min-width: 768px) { .navbar__links { display: flex; } }
+    .navbar__link {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(232,220,200,0.7);
+      transition: color 0.2s, background 0.2s;
+    }
+    .navbar__link:hover { color: var(--gold); background: rgba(201,168,76,0.05); }
+
+    .navbar__cta-wrap { display: none; align-items: center; gap: 12px; }
+    @media (min-width: 768px) { .navbar__cta-wrap { display: flex; } }
+    .navbar__cta {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--deep-black);
+      background: var(--gold);
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .navbar__cta:hover { background: var(--gold-light); box-shadow: 0 0 20px rgba(201,168,76,0.4); }
+
+    .navbar__toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      border: 1px solid var(--stone);
+      color: var(--parchment);
+    }
+    @media (min-width: 768px) { .navbar__toggle { display: none; } }
+    .navbar__toggle svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .navbar__mobile {
+      display: none;
+      border-top: 1px solid rgba(201,168,76,0.1);
+      background: rgba(10,10,15,0.95);
+      backdrop-filter: blur(24px);
+      padding: 16px;
+    }
+    .navbar__mobile.open { display: flex; flex-direction: column; gap: 4px; }
+    @media (min-width: 768px) { .navbar__mobile { display: none !important; } }
+    .navbar__mobile-link {
+      display: block;
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(232,220,200,0.7);
+      transition: color 0.2s, background 0.2s;
+    }
+    .navbar__mobile-link:hover { color: var(--gold); background: rgba(201,168,76,0.05); }
+    .navbar__mobile-cta {
+      display: block;
+      margin-top: 8px;
+      padding: 12px 20px;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--deep-black);
+      background: var(--gold);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+    }
+    .hero__bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero__overlay1 { position: absolute; inset: 0; background: rgba(10,10,15,0.6); }
+    .hero__overlay2 { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,10,15,0.8), transparent 40%, var(--deep-black)); }
+
+    .hero__particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .hero__particle {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+    .hero__particle--1 { top: 25%; left: 25%; width: 256px; height: 256px; background: rgba(59,130,246,0.05); }
+    .hero__particle--2 { top: 33%; right: 25%; width: 192px; height: 192px; background: rgba(124,58,237,0.08); animation-delay: 1.5s; filter: blur(100px); }
+    .hero__particle--3 { bottom: 25%; left: 33%; width: 224px; height: 224px; background: rgba(59,130,246,0.04); animation-delay: 3s; filter: blur(90px); }
+
+    .hero__content {
+      position: relative;
+      z-index: 10;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 16px;
+      text-align: center;
+    }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 32px;
+      padding: 8px 20px;
+      border-radius: 9999px;
+      border: 1px solid rgba(201,168,76,0.3);
+      background: rgba(10,10,15,0.6);
+      backdrop-filter: blur(8px);
+    }
+    .hero__badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .hero__badge-text {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .hero__title {
+      margin-bottom: 24px;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      font-size: clamp(32px, 7vw, 72px);
+    }
+    .hero__title-line1 { display: block; color: var(--parchment); }
+    .hero__title-line2 { display: block; margin-top: 8px; }
+
+    .hero__desc {
+      max-width: 640px;
+      margin: 0 auto 40px;
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(232,220,200,0.6);
+    }
+    @media (min-width: 640px) { .hero__desc { font-size: 18px; } }
+
+    .hero__cta-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    @media (min-width: 640px) { .hero__cta-group { flex-direction: row; } }
+    .hero__cta-primary {
+      display: inline-block;
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--deep-black);
+      background: var(--gold);
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .hero__cta-primary:hover { background: var(--gold-light); box-shadow: 0 0 30px rgba(201,168,76,0.5); }
+    .hero__cta-secondary {
+      display: inline-block;
+      padding: 16px 32px;
+      border-radius: 8px;
+      border: 1px solid rgba(201,168,76,0.3);
+      background: rgba(10,10,15,0.4);
+      backdrop-filter: blur(8px);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .hero__cta-secondary:hover { border-color: rgba(201,168,76,0.6); background: rgba(201,168,76,0.1); }
+
+    .hero__stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 64px;
+    }
+    @media (min-width: 640px) { .hero__stats { gap: 32px; } }
+    .hero__stat { display: flex; flex-direction: column; align-items: center; }
+    .hero__stat-value { font-size: clamp(20px, 4vw, 32px); font-weight: 900; color: var(--gold); }
+    .hero__stat-label { margin-top: 4px; font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(232,220,200,0.4); }
+    @media (min-width: 640px) { .hero__stat-label { font-size: 12px; } }
+
+    .hero__scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: float 4s ease-in-out infinite;
+    }
+    .hero__scroll a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: rgba(232,220,200,0.3);
+      transition: color 0.2s;
+    }
+    .hero__scroll a:hover { color: var(--gold); }
+    .hero__scroll-text { font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; }
+    .hero__scroll svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+    /* ===== SERVICES ===== */
+    .services { position: relative; padding: 96px 0; }
+    @media (min-width: 640px) { .services { padding: 128px 0; } }
+    .services__header { text-align: center; margin-bottom: 64px; }
+    @media (min-width: 640px) { .services__header { margin-bottom: 80px; } }
+    .services__label { color: rgba(201,168,76,0.6); }
+
+    .services__grid {
+      display: grid;
+      gap: 24px;
+    }
+    @media (min-width: 768px) { .services__grid { grid-template-columns: repeat(3, 1fr); gap: 32px; } }
+
+    .service-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border-radius: 12px;
+      transition: all 0.5s;
+    }
+    .service-card--gold { border: 1px solid rgba(201,168,76,0.3); box-shadow: 0 0 30px rgba(201,168,76,0.15); }
+    .service-card--gold:hover { border-color: rgba(201,168,76,0.6); box-shadow: 0 0 40px rgba(201,168,76,0.3); }
+    .service-card--blue { border: 1px solid rgba(59,130,246,0.3); box-shadow: 0 0 30px rgba(59,130,246,0.15); }
+    .service-card--blue:hover { border-color: rgba(59,130,246,0.6); box-shadow: 0 0 40px rgba(59,130,246,0.3); }
+    .service-card--purple { border: 1px solid rgba(124,58,237,0.3); box-shadow: 0 0 30px rgba(124,58,237,0.15); }
+    .service-card--purple:hover { border-color: rgba(124,58,237,0.6); box-shadow: 0 0 40px rgba(124,58,237,0.3); }
+
+    .service-card__img-wrap {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+    @media (min-width: 640px) { .service-card__img-wrap { height: 224px; } }
+    .service-card__img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s; }
+    .service-card:hover .service-card__img-wrap img { transform: scale(1.05); }
+    .service-card__img-gradient { position: absolute; inset: 0; background: linear-gradient(to top, var(--stone-dark), rgba(18,18,26,0.6) 50%, transparent); }
+
+    .service-card__float-icon {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+    }
+    .service-card__float-icon--gold { background: rgba(201,168,76,0.1); }
+    .service-card__float-icon--blue { background: rgba(59,130,246,0.1); }
+    .service-card__float-icon--purple { background: rgba(124,58,237,0.1); }
+    .service-card__float-icon svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .service-card__float-icon--gold svg { color: var(--gold); }
+    .service-card__float-icon--blue svg { color: var(--mana-blue-glow); }
+    .service-card__float-icon--purple svg { color: var(--arcane-purple-glow); }
+
+    .service-card__price-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+    .service-card__price-badge--gold { background: rgba(201,168,76,0.1); color: var(--gold); border: 1px solid rgba(201,168,76,0.2); }
+    .service-card__price-badge--blue { background: rgba(59,130,246,0.1); color: var(--mana-blue-glow); border: 1px solid rgba(59,130,246,0.2); }
+    .service-card__price-badge--purple { background: rgba(124,58,237,0.1); color: var(--arcane-purple-glow); border: 1px solid rgba(124,58,237,0.2); }
+
+    .service-card__body { flex: 1; display: flex; flex-direction: column; padding: 24px; }
+
+    .service-card__subtitle {
+      margin-bottom: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+    .service-card__subtitle--gold { color: var(--gold); }
+    .service-card__subtitle--blue { color: var(--mana-blue-glow); }
+    .service-card__subtitle--purple { color: var(--arcane-purple-glow); }
+
+    .service-card__title { margin-bottom: 12px; font-size: clamp(20px, 3vw, 24px); font-weight: 900; letter-spacing: -0.01em; color: var(--parchment); }
+    .service-card__desc { flex: 1; margin-bottom: 24px; font-size: 14px; line-height: 1.7; color: rgba(232,220,200,0.5); }
+
+    .service-card__features { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+    .service-card__feature { display: flex; align-items: center; gap: 8px; }
+    .service-card__feature svg { width: 14px; height: 14px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .service-card__feature--gold svg { color: var(--gold); }
+    .service-card__feature--blue svg { color: var(--mana-blue-glow); }
+    .service-card__feature--purple svg { color: var(--arcane-purple-glow); }
+    .service-card__feature span { font-size: 12px; font-weight: 500; color: rgba(232,220,200,0.6); }
+
+    .service-card__btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .service-card__btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; transition: transform 0.2s; }
+    .service-card:hover .service-card__btn svg { transform: translateX(4px); }
+    .service-card__btn--gold { background: var(--gold); color: var(--deep-black); }
+    .service-card__btn--gold:hover { background: var(--gold-light); }
+    .service-card__btn--blue { background: var(--mana-blue); color: var(--parchment); }
+    .service-card__btn--blue:hover { background: var(--mana-blue-glow); }
+    .service-card__btn--purple { background: var(--arcane-purple); color: var(--parchment); }
+    .service-card__btn--purple:hover { background: var(--arcane-purple-glow); }
+
+    /* ===== FEATURES ===== */
+    .features { position: relative; padding: 96px 0; }
+    @media (min-width: 640px) { .features { padding: 128px 0; } }
+    .features__header { text-align: center; margin-bottom: 64px; }
+    @media (min-width: 640px) { .features__header { margin-bottom: 80px; } }
+    .features__label { color: rgba(96,165,250,0.6); }
+
+    .features__grid { display: grid; gap: 16px; }
+    @media (min-width: 640px) { .features__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .features__grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+
+    .feature-card {
+      position: relative;
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid var(--stone);
+      background: rgba(18,18,26,0.5);
+      transition: border-color 0.3s, background 0.3s;
+      overflow: hidden;
+    }
+    @media (min-width: 640px) { .feature-card { padding: 32px; } }
+    .feature-card:hover { border-color: rgba(201,168,76,0.3); background: var(--stone-dark); }
+
+    .feature-card__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid rgba(201,168,76,0.2);
+      background: rgba(201,168,76,0.05);
+    }
+    .feature-card__icon svg { width: 20px; height: 20px; color: var(--gold); fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .feature-card__title { margin-bottom: 8px; font-size: 16px; font-weight: 700; letter-spacing: 0.04em; color: var(--parchment); }
+    .feature-card__desc { font-size: 14px; line-height: 1.7; color: rgba(232,220,200,0.45); }
+
+    .feature-card__accent {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 48px;
+      height: 48px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .feature-card:hover .feature-card__accent { opacity: 1; }
+    .feature-card__accent-h { position: absolute; top: 0; right: 0; height: 1px; width: 32px; background: linear-gradient(to left, rgba(201,168,76,0.4), transparent); }
+    .feature-card__accent-v { position: absolute; top: 0; right: 0; width: 1px; height: 32px; background: linear-gradient(to bottom, rgba(201,168,76,0.4), transparent); }
+
+    /* ===== REVIEWS ===== */
+    .reviews { position: relative; padding: 96px 0; }
+    @media (min-width: 640px) { .reviews { padding: 128px 0; } }
+    .reviews__header { text-align: center; margin-bottom: 64px; }
+    @media (min-width: 640px) { .reviews__header { margin-bottom: 80px; } }
+    .reviews__label { color: rgba(201,168,76,0.6); }
+
+    .reviews__grid { display: grid; gap: 16px; }
+    @media (min-width: 640px) { .reviews__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .reviews__grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+
+    .review-card {
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid var(--stone);
+      background: rgba(18,18,26,0.5);
+      transition: border-color 0.3s;
+    }
+    .review-card:hover { border-color: rgba(201,168,76,0.2); }
+
+    .review-card__stars { display: flex; gap: 2px; margin-bottom: 16px; }
+    .review-card__stars svg { width: 14px; height: 14px; fill: var(--gold); color: var(--gold); }
+
+    .review-card__text { margin-bottom: 20px; font-size: 14px; line-height: 1.7; color: rgba(232,220,200,0.6); }
+
+    .review-card__footer { display: flex; align-items: center; justify-content: space-between; }
+    .review-card__name { font-size: 14px; font-weight: 700; color: var(--parchment); }
+    .review-card__realm { font-size: 11px; color: rgba(232,220,200,0.4); }
+    .review-card__service { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(201,168,76,0.6); text-align: right; }
+    .review-card__date { font-size: 10px; color: rgba(232,220,200,0.3); text-align: right; }
+
+    /* ===== FAQ ===== */
+    .faq { position: relative; padding: 96px 0; }
+    @media (min-width: 640px) { .faq { padding: 128px 0; } }
+    .faq__inner { max-width: 768px; margin: 0 auto; padding: 0 16px; }
+    @media (min-width: 1024px) { .faq__inner { padding: 0 32px; } }
+    .faq__header { text-align: center; margin-bottom: 64px; }
+    @media (min-width: 640px) { .faq__header { margin-bottom: 80px; } }
+    .faq__label { color: rgba(96,165,250,0.6); }
+
+    .faq__list { display: flex; flex-direction: column; gap: 12px; }
+
+    .faq-item {
+      border-radius: 12px;
+      border: 1px solid var(--stone);
+      background: rgba(18,18,26,0.3);
+      transition: border-color 0.3s, background 0.3s;
+      overflow: hidden;
+    }
+    .faq-item.active { border-color: rgba(201,168,76,0.3); background: rgba(18,18,26,0.8); }
+
+    .faq-item__btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 20px 24px;
+      text-align: left;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: rgba(232,220,200,0.8);
+      transition: color 0.2s;
+    }
+    @media (min-width: 640px) { .faq-item__btn { font-size: 16px; } }
+    .faq-item.active .faq-item__btn { color: var(--gold); }
+
+    .faq-item__chevron {
+      flex-shrink: 0;
+      margin-left: 16px;
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      color: rgba(232,220,200,0.4);
+      transition: transform 0.3s, color 0.3s;
+    }
+    .faq-item.active .faq-item__chevron { transform: rotate(180deg); color: var(--gold); }
+
+    .faq-item__answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .faq-item.active .faq-item__answer { max-height: 200px; padding-bottom: 20px; }
+    .faq-item__answer p { padding: 0 24px; font-size: 14px; line-height: 1.7; color: rgba(232,220,200,0.5); }
+
+    /* ===== CTA ===== */
+    .cta-section { position: relative; padding: 96px 0; }
+    @media (min-width: 640px) { .cta-section { padding: 128px 0; } }
+    .cta-section__inner { max-width: 896px; margin: 0 auto; padding: 0 16px; }
+    @media (min-width: 1024px) { .cta-section__inner { padding: 0 32px; } }
+
+    .cta-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid rgba(201,168,76,0.2);
+      padding: 32px;
+      text-align: center;
+    }
+    @media (min-width: 640px) { .cta-card { padding: 48px; } }
+    @media (min-width: 1024px) { .cta-card { padding: 64px; } }
+
+    .cta-card__glow1 { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 320px; height: 160px; background: rgba(201,168,76,0.05); border-radius: 50%; filter: blur(100px); }
+    .cta-card__glow2 { position: absolute; bottom: 0; left: 25%; width: 256px; height: 128px; background: rgba(59,130,246,0.05); border-radius: 50%; filter: blur(80px); }
+
+    .cta-card__content { position: relative; z-index: 10; }
+
+    .cta-card__buttons { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
+    @media (min-width: 640px) { .cta-card__buttons { flex-direction: row; } }
+
+    /* ===== FOOTER ===== */
+    .site-footer {
+      position: relative;
+      border-top: 1px solid var(--stone);
+      background: var(--deep-black);
+    }
+    .site-footer__inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 48px 16px;
+    }
+    @media (min-width: 1024px) { .site-footer__inner { padding: 64px 32px; } }
+
+    .site-footer__grid {
+      display: grid;
+      gap: 32px;
+    }
+    @media (min-width: 640px) { .site-footer__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .site-footer__grid { grid-template-columns: 1.5fr 1fr 1fr 1fr; } }
+
+    .site-footer__brand-desc { max-width: 280px; margin-bottom: 16px; font-size: 12px; line-height: 1.7; color: rgba(232,220,200,0.4); }
+
+    .site-footer__socials { display: flex; gap: 12px; }
+    .site-footer__social {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--stone);
+      background: rgba(18,18,26,0.5);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(232,220,200,0.5);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .site-footer__social:hover { border-color: rgba(201,168,76,0.3); color: var(--gold); }
+
+    .site-footer__heading {
+      margin-bottom: 16px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .site-footer__links { display: flex; flex-direction: column; gap: 8px; }
+    .site-footer__link { font-size: 12px; color: rgba(232,220,200,0.4); transition: color 0.2s; }
+    .site-footer__link:hover { color: var(--parchment); }
+
+    .site-footer__bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid var(--stone);
+    }
+    @media (min-width: 640px) { .site-footer__bottom { flex-direction: row; } }
+    .site-footer__copy { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(232,220,200,0.3); }
+    .site-footer__disclaimer { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(232,220,200,0.2); }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="navbar__inner">
+      <a href="#" class="navbar__logo" aria-label="Exodar Market home">
+        <div class="navbar__logo-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="navbar__logo-text">
+          <span class="navbar__logo-name">Exodar</span>
+          <span class="navbar__logo-sub">Market</span>
+        </div>
+      </a>
+
+      <div class="navbar__links">
+        <a href="#gold" class="navbar__link">Gold</a>
+        <a href="#boosting" class="navbar__link">Boosting</a>
+        <a href="#accounts" class="navbar__link">Accounts</a>
+        <a href="#reviews" class="navbar__link">Reviews</a>
+        <a href="#faq" class="navbar__link">FAQ</a>
+      </div>
+
+      <div class="navbar__cta-wrap">
+        <a href="#" class="navbar__cta">Get Started</a>
+      </div>
+
+      <button class="navbar__toggle" id="mobileToggle" aria-label="Toggle menu" aria-expanded="false">
+        <svg id="menuIcon" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg id="closeIcon" viewBox="0 0 24 24" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="navbar__mobile" id="mobileMenu">
+      <a href="#gold" class="navbar__mobile-link">Gold</a>
+      <a href="#boosting" class="navbar__mobile-link">Boosting</a>
+      <a href="#accounts" class="navbar__mobile-link">Accounts</a>
+      <a href="#reviews" class="navbar__mobile-link">Reviews</a>
+      <a href="#faq" class="navbar__mobile-link">FAQ</a>
+      <a href="#" class="navbar__mobile-cta">Get Started</a>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero__bg">
+      <img src="images/hero-bg.jpg" alt="" />
+      <div class="hero__overlay1"></div>
+      <div class="hero__overlay2"></div>
+    </div>
+
+    <div class="hero__particles" aria-hidden="true">
+      <div class="hero__particle hero__particle--1"></div>
+      <div class="hero__particle hero__particle--2"></div>
+      <div class="hero__particle hero__particle--3"></div>
+    </div>
+
+    <div class="hero__content">
+      <div class="hero__badge">
+        <div class="hero__badge-dot"></div>
+        <span class="hero__badge-text">Trusted by 50,000+ Players</span>
+      </div>
+
+      <h1 class="hero__title">
+        <span class="hero__title-line1">Your Gateway to</span>
+        <span class="hero__title-line2 gold-shimmer">Exodar's Finest</span>
+      </h1>
+
+      <div class="divider" aria-hidden="true">
+        <div class="divider-line divider-line--gold"></div>
+        <div class="divider-diamond divider-diamond--gold"></div>
+        <div class="divider-line divider-line--gold-r"></div>
+      </div>
+
+      <p class="hero__desc">
+        Premium gold, expert character boosting, and battle-ready accounts.
+        Fast delivery, unmatched security, legendary service.
+      </p>
+
+      <div class="hero__cta-group">
+        <a href="#services" class="hero__cta-primary">Explore Services</a>
+        <a href="#reviews" class="hero__cta-secondary">Read Reviews</a>
+      </div>
+
+      <div class="hero__stats">
+        <div class="hero__stat">
+          <span class="hero__stat-value">99.8%</span>
+          <span class="hero__stat-label">Delivery Rate</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-value">24/7</span>
+          <span class="hero__stat-label">Live Support</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-value">10min</span>
+          <span class="hero__stat-label">Avg Delivery</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__scroll">
+      <a href="#services">
+        <span class="hero__scroll-text">Scroll</span>
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section id="services" class="services">
+    <div class="section-separator section-separator--gold" aria-hidden="true"></div>
+
+    <div class="container">
+      <div class="services__header">
+        <span class="section-label services__label">Our Services</span>
+        <h2 class="section-title">Choose Your Path</h2>
+        <div class="divider" aria-hidden="true">
+          <div class="divider-line divider-line--gold"></div>
+          <div class="divider-diamond divider-diamond--gold"></div>
+          <div class="divider-line divider-line--gold-r"></div>
+        </div>
+        <p class="section-desc">Three legendary services, one trusted marketplace. Every order backed by our ironclad guarantee.</p>
+      </div>
+
+      <div class="services__grid">
+
+        <!-- Gold Selling -->
+        <article id="gold" class="service-card service-card--gold parchment-card">
+          <div class="service-card__img-wrap">
+            <img src="images/gold-selling.jpg" alt="Gold Selling service illustration" />
+            <div class="service-card__img-gradient"></div>
+            <div class="service-card__float-icon service-card__float-icon--gold">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div class="service-card__price-badge service-card__price-badge--gold">From $2.99</div>
+          </div>
+          <div class="service-card__body">
+            <span class="service-card__subtitle service-card__subtitle--gold">Instant Wealth</span>
+            <h3 class="service-card__title">Gold Selling</h3>
+            <p class="service-card__desc">Get the gold you need to dominate the realm. All servers supported with lightning-fast delivery and the most competitive rates on the market.</p>
+            <div class="service-card__features">
+              <div class="service-card__feature service-card__feature--gold">
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>All Servers</span>
+              </div>
+              <div class="service-card__feature service-card__feature--gold">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>Instant Delivery</span>
+              </div>
+              <div class="service-card__feature service-card__feature--gold">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>Best Prices</span>
+              </div>
+            </div>
+            <a href="#" class="service-card__btn service-card__btn--gold">
+              <span>Shop Now</span>
+              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Character Boosting -->
+        <article id="boosting" class="service-card service-card--blue parchment-card">
+          <div class="service-card__img-wrap">
+            <img src="images/character-boosting.jpg" alt="Character Boosting service illustration" />
+            <div class="service-card__img-gradient"></div>
+            <div class="service-card__float-icon service-card__float-icon--blue">
+              <svg viewBox="0 0 24 24"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 7l4-4 4 4-4 4"/><path d="M3 21l9-9"/></svg>
+            </div>
+            <div class="service-card__price-badge service-card__price-badge--blue">From $9.99</div>
+          </div>
+          <div class="service-card__body">
+            <span class="service-card__subtitle service-card__subtitle--blue">Ascend in Power</span>
+            <h3 class="service-card__title">Character Boosting</h3>
+            <p class="service-card__desc">Professional boosting services from Mythic raiders and Gladiators. Level up, conquer raids, or climb the PvP ladder with expert pilots.</p>
+            <div class="service-card__features">
+              <div class="service-card__feature service-card__feature--blue">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>Mythic Raids</span>
+              </div>
+              <div class="service-card__feature service-card__feature--blue">
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>PvP Rating</span>
+              </div>
+              <div class="service-card__feature service-card__feature--blue">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>Leveling</span>
+              </div>
+            </div>
+            <a href="#" class="service-card__btn service-card__btn--blue">
+              <span>Shop Now</span>
+              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Accounts -->
+        <article id="accounts" class="service-card service-card--purple parchment-card">
+          <div class="service-card__img-wrap">
+            <img src="images/accounts.jpg" alt="Accounts service illustration" />
+            <div class="service-card__img-gradient"></div>
+            <div class="service-card__float-icon service-card__float-icon--purple">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+            <div class="service-card__price-badge service-card__price-badge--purple">From $49.99</div>
+          </div>
+          <div class="service-card__body">
+            <span class="service-card__subtitle service-card__subtitle--purple">Ready for Battle</span>
+            <h3 class="service-card__title">Accounts</h3>
+            <p class="service-card__desc">Premium accounts loaded with rare mounts, legendary gear, and max-level characters. Skip the grind and start your adventure now.</p>
+            <div class="service-card__features">
+              <div class="service-card__feature service-card__feature--purple">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>Rare Mounts</span>
+              </div>
+              <div class="service-card__feature service-card__feature--purple">
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Max Level</span>
+              </div>
+              <div class="service-card__feature service-card__feature--purple">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>Full Gear</span>
+              </div>
+            </div>
+            <a href="#" class="service-card__btn service-card__btn--purple">
+              <span>Shop Now</span>
+              <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="features">
+    <div class="section-separator section-separator--blue" aria-hidden="true"></div>
+
+    <div class="container">
+      <div class="features__header">
+        <span class="section-label features__label">Why Choose Us</span>
+        <h2 class="section-title">Forged in Trust</h2>
+        <div class="divider" aria-hidden="true">
+          <div class="divider-line divider-line--blue"></div>
+          <div class="divider-diamond divider-diamond--blue"></div>
+          <div class="divider-line divider-line--blue-r"></div>
+        </div>
+        <p class="section-desc">We've built our reputation one satisfied customer at a time. Here's what sets us apart from the rest.</p>
+      </div>
+
+      <div class="features__grid">
+
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 class="feature-card__title">Ironclad Guarantee</h3>
+          <p class="feature-card__desc">Full money-back guarantee on every transaction. Your gold, your safety, our promise.</p>
+          <div class="feature-card__accent" aria-hidden="true"><div class="feature-card__accent-h"></div><div class="feature-card__accent-v"></div></div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3 class="feature-card__title">Lightning Delivery</h3>
+          <p class="feature-card__desc">Average delivery time under 10 minutes. Most orders completed instantly.</p>
+          <div class="feature-card__accent" aria-hidden="true"><div class="feature-card__accent-h"></div><div class="feature-card__accent-v"></div></div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3 class="feature-card__title">Always Available</h3>
+          <p class="feature-card__desc">Round-the-clock service with real human support. We never sleep, so you never wait.</p>
+          <div class="feature-card__accent" aria-hidden="true"><div class="feature-card__accent-h"></div><div class="feature-card__accent-v"></div></div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+          </div>
+          <h3 class="feature-card__title">Live Support</h3>
+          <p class="feature-card__desc">Expert support team available 24/7 via live chat. Real players helping real players.</p>
+          <div class="feature-card__accent" aria-hidden="true"><div class="feature-card__accent-h"></div><div class="feature-card__accent-v"></div></div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <h3 class="feature-card__title">Secure Transactions</h3>
+          <p class="feature-card__desc">Bank-grade encryption and VPN-protected deliveries keep your account safe.</p>
+          <div class="feature-card__accent" aria-hidden="true"><div class="feature-card__accent-h"></div><div class="feature-card__accent-v"></div></div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-card__icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          </div>
+          <h3 class="feature-card__title">Veteran Traders</h3>
+          <p class="feature-card__desc">Over 8 years of trusted service. 50,000+ satisfied customers across all realms.</p>
+          <div class="feature-card__accent" aria-hidden="true"><div class="feature-card__accent-h"></div><div class="feature-card__accent-v"></div></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== REVIEWS ===== -->
+  <section id="reviews" class="reviews">
+    <div class="section-separator section-separator--gold" aria-hidden="true"></div>
+
+    <div class="container">
+      <div class="reviews__header">
+        <span class="section-label reviews__label">Testimonials</span>
+        <h2 class="section-title">Words of Valor</h2>
+        <div class="divider" aria-hidden="true">
+          <div class="divider-line divider-line--gold"></div>
+          <div class="divider-diamond divider-diamond--gold"></div>
+          <div class="divider-line divider-line--gold-r"></div>
+        </div>
+        <p class="section-desc">Hear from the heroes who trusted us with their journey through the realm.</p>
+      </div>
+
+      <div class="reviews__grid">
+
+        <div class="review-card">
+          <div class="review-card__stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="review-card__text">"Fastest gold delivery I've ever experienced. Under 5 minutes and great communication throughout. Will definitely be returning."</p>
+          <div class="review-card__footer">
+            <div><p class="review-card__name">Thralldor</p><p class="review-card__realm">Stormrage-US</p></div>
+            <div><span class="review-card__service">Gold Selling</span><br><span class="review-card__date">2 days ago</span></div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card__stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="review-card__text">"Got my Mythic raid boost done flawlessly. The team was incredibly professional and even explained strats during the run."</p>
+          <div class="review-card__footer">
+            <div><p class="review-card__name">Sylvara</p><p class="review-card__realm">Ravencrest-EU</p></div>
+            <div><span class="review-card__service">Character Boosting</span><br><span class="review-card__date">5 days ago</span></div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card__stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="review-card__text">"Bought a fully geared account with rare mounts. Everything was exactly as described. Smooth transfer process."</p>
+          <div class="review-card__footer">
+            <div><p class="review-card__name">Grimjaw</p><p class="review-card__realm">Tichondrius-US</p></div>
+            <div><span class="review-card__service">Accounts</span><br><span class="review-card__date">1 week ago</span></div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card__stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="review-card__text">"Been using their services for over a year now. Always reliable, always fast. The 24/7 support is a huge plus."</p>
+          <div class="review-card__footer">
+            <div><p class="review-card__name">Lunareth</p><p class="review-card__realm">Tarren Mill-EU</p></div>
+            <div><span class="review-card__service">Gold Selling</span><br><span class="review-card__date">1 week ago</span></div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card__stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="review-card__text">"The gladiator boost was amazing. Went from 1600 to 2100 in two sessions. Highly skilled players."</p>
+          <div class="review-card__footer">
+            <div><p class="review-card__name">Boomkin</p><p class="review-card__realm">Area 52-US</p></div>
+            <div><span class="review-card__service">Character Boosting</span><br><span class="review-card__date">2 weeks ago</span></div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-card__stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <p class="review-card__text">"Incredible value for the gold prices. Way cheaper than any competitor I've tried. Zero issues with delivery."</p>
+          <div class="review-card__footer">
+            <div><p class="review-card__name">Frostweaver</p><p class="review-card__realm">Draenor-EU</p></div>
+            <div><span class="review-card__service">Gold Selling</span><br><span class="review-card__date">2 weeks ago</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq" class="faq">
+    <div class="section-separator section-separator--blue" aria-hidden="true"></div>
+
+    <div class="faq__inner">
+      <div class="faq__header">
+        <span class="section-label faq__label">Knowledge Base</span>
+        <h2 class="section-title">Common Questions</h2>
+        <div class="divider" aria-hidden="true">
+          <div class="divider-line divider-line--blue"></div>
+          <div class="divider-diamond divider-diamond--blue"></div>
+          <div class="divider-line divider-line--blue-r"></div>
+        </div>
+      </div>
+
+      <div class="faq__list" id="faqList">
+        <div class="faq-item active">
+          <button class="faq-item__btn" aria-expanded="true">
+            <span>How fast is the gold delivery?</span>
+            <svg class="faq-item__chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-item__answer"><p>Most gold deliveries are completed within 5-10 minutes of purchase. In rare cases during high-demand periods, it may take up to 30 minutes. You'll receive live updates throughout the process.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__btn" aria-expanded="false">
+            <span>Is my account safe during boosting?</span>
+            <svg class="faq-item__chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-item__answer"><p>Absolutely. We use VPN protection matching your location, play during your normal hours, and follow all safety protocols. We've completed over 50,000 boosts with a 99.9% safety record.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__btn" aria-expanded="false">
+            <span>What payment methods do you accept?</span>
+            <svg class="faq-item__chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-item__answer"><p>We accept all major credit cards, PayPal, cryptocurrency, and various regional payment methods. All transactions are processed through secure, encrypted payment gateways.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__btn" aria-expanded="false">
+            <span>Can I get a refund if I'm not satisfied?</span>
+            <svg class="faq-item__chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-item__answer"><p>Yes. We offer a full money-back guarantee. If we fail to deliver your order or you're unsatisfied with the service, contact our support team for an immediate refund.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__btn" aria-expanded="false">
+            <span>Which expansions and servers do you support?</span>
+            <svg class="faq-item__chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-item__answer"><p>We support all live servers across US, EU, and OCE regions for the current expansion. We also offer services for WoW Classic and Season of Discovery realms.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__btn" aria-expanded="false">
+            <span>How do account transfers work?</span>
+            <svg class="faq-item__chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-item__answer"><p>After purchase, we securely transfer account credentials through encrypted channels. We include a full account recovery package and 30-day support warranty with every account sale.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-section">
+    <div class="section-separator section-separator--gold" aria-hidden="true"></div>
+
+    <div class="cta-section__inner">
+      <div class="cta-card parchment-card">
+        <div class="cta-card__glow1" aria-hidden="true"></div>
+        <div class="cta-card__glow2" aria-hidden="true"></div>
+        <div class="cta-card__content">
+          <span class="section-label" style="color: rgba(201,168,76,0.6);">Ready to Begin?</span>
+          <h2 class="section-title">Your Legend Awaits</h2>
+          <div class="divider" aria-hidden="true">
+            <div class="divider-line divider-line--gold"></div>
+            <div class="divider-diamond divider-diamond--gold"></div>
+            <div class="divider-line divider-line--gold-r"></div>
+          </div>
+          <p class="section-desc" style="margin-bottom: 32px;">Join thousands of champions who trust Exodar Market for their gold, boosting, and account needs. Start your journey now.</p>
+          <div class="cta-card__buttons">
+            <a href="#services" class="hero__cta-primary">Browse Services</a>
+            <a href="#" class="hero__cta-secondary">Contact Support</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__grid">
+
+        <div>
+          <a href="#" class="navbar__logo" style="margin-bottom: 16px;">
+            <div class="navbar__logo-icon" style="width:36px;height:36px;">
+              <svg viewBox="0 0 24 24" style="width:16px;height:16px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="navbar__logo-text">
+              <span class="navbar__logo-name" style="font-size:12px;">Exodar</span>
+              <span class="navbar__logo-sub" style="font-size:9px;">Market</span>
+            </div>
+          </a>
+          <p class="site-footer__brand-desc">Your trusted source for premium WoW services since 2017. Serving champions across all realms.</p>
+          <div class="site-footer__socials">
+            <a href="#" class="site-footer__social">Discord</a>
+            <a href="#" class="site-footer__social">Twitter</a>
+            <a href="#" class="site-footer__social">YouTube</a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="site-footer__heading">Services</h4>
+          <ul class="site-footer__links">
+            <li><a href="#gold" class="site-footer__link">Gold Selling</a></li>
+            <li><a href="#boosting" class="site-footer__link">Character Boosting</a></li>
+            <li><a href="#accounts" class="site-footer__link">Accounts</a></li>
+            <li><a href="#" class="site-footer__link">Power Leveling</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="site-footer__heading">Support</h4>
+          <ul class="site-footer__links">
+            <li><a href="#" class="site-footer__link">Live Chat</a></li>
+            <li><a href="#faq" class="site-footer__link">FAQ</a></li>
+            <li><a href="#" class="site-footer__link">Refund Policy</a></li>
+            <li><a href="#" class="site-footer__link">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="site-footer__heading">Legal</h4>
+          <ul class="site-footer__links">
+            <li><a href="#" class="site-footer__link">Terms of Service</a></li>
+            <li><a href="#" class="site-footer__link">Privacy Policy</a></li>
+            <li><a href="#" class="site-footer__link">Cookie Policy</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="site-footer__bottom">
+        <p class="site-footer__copy">2024 Exodar Market. All rights reserved.</p>
+        <p class="site-footer__disclaimer">Not affiliated with Blizzard Entertainment</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // Mobile menu toggle
+    const toggle = document.getElementById('mobileToggle');
+    const menu = document.getElementById('mobileMenu');
+    const menuIcon = document.getElementById('menuIcon');
+    const closeIcon = document.getElementById('closeIcon');
+
+    toggle.addEventListener('click', function() {
+      const isOpen = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen);
+      menuIcon.style.display = isOpen ? 'none' : 'block';
+      closeIcon.style.display = isOpen ? 'block' : 'none';
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.navbar__mobile-link, .navbar__mobile-cta').forEach(function(link) {
+      link.addEventListener('click', function() {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        menuIcon.style.display = 'block';
+        closeIcon.style.display = 'none';
+      });
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-item__btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        const item = btn.closest('.faq-item');
+        const isActive = item.classList.contains('active');
+
+        // Close all
+        document.querySelectorAll('.faq-item').forEach(function(el) {
+          el.classList.remove('active');
+          el.querySelector('.faq-item__btn').setAttribute('aria-expanded', 'false');
+        });
+
+        // Toggle current
+        if (!isActive) {
+          item.classList.add('active');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
