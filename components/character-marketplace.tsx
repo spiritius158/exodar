@@ -1193,15 +1193,15 @@ const tierColors: Record<string, string> = {
 }
 
 const classImages: Record<string, string> = {
-  Paladin: "/images/classes/paladin.jpg",
-  Hunter: "/images/classes/hunter.jpg",
-  Warrior: "/images/classes/warrior.jpg",
-  Rogue: "/images/classes/rogue.jpg",
-  Warlock: "/images/classes/warlock.jpg",
-  Shaman: "/images/classes/shaman.jpg",
-  Mage: "/images/classes/mage.jpg",
-  Priest: "/images/classes/priest.jpg",
-  Druid: "/images/classes/druid.jpg",
+  Paladin: "/images/classes/paladin.png",
+  Hunter: "/images/classes/hunter.png",
+  Warrior: "/images/classes/warrior.png",
+  Rogue: "/images/classes/rogue.png",
+  Warlock: "/images/classes/warlock.png",
+  Shaman: "/images/classes/shaman.png",
+  Mage: "/images/classes/mage.png",
+  Priest: "/images/classes/priest.png",
+  Druid: "/images/classes/druid.png",
 }
 
 const classColors: Record<string, string> = {
@@ -1457,7 +1457,7 @@ export function CharacterMarketplace() {
               <div className="mb-3 flex items-start gap-3">
                 <div className="h-11 w-11 shrink-0 overflow-hidden rounded-lg border border-stone bg-stone-dark">
                   <img
-                    src={classImages[char.className] || "/images/classes/warrior.jpg"}
+                    src={classImages[char.className] || "/images/classes/warrior.png"}
                     alt={`${char.className} class icon`}
                     className="h-full w-full object-cover"
                   />
