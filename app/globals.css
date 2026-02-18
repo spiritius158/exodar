@@ -262,6 +262,16 @@
   animation: portal-swirl 20s linear infinite;
 }
 
+/* Discord glow pulse */
+@keyframes discord-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(88, 101, 242, 0.2), 0 0 20px rgba(88, 101, 242, 0.05); }
+  50% { box-shadow: 0 0 16px rgba(88, 101, 242, 0.4), 0 0 40px rgba(88, 101, 242, 0.15); }
+}
+
+.animate-discord-glow {
+  animation: discord-glow 2.5s ease-in-out infinite;
+}
+
 /* TBC ornamental divider */
 .tbc-divider {
   position: relative;
