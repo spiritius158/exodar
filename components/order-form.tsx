@@ -46,10 +46,13 @@ const servers = [
 const boostTypes = [
   { value: "leveling-1-70", label: "Full Powerleveling 1-70 ($181.99)" },
   { value: "leveling-60-70", label: "Outland Leveling 60-70 ($105.99)" },
+  { value: "arena-rating", label: "Arena Rating Boost ($16.99-$325.99)" },
   { value: "profession", label: "Profession Boost 0-375 ($40-$70)" },
   { value: "pre-raid-gear", label: "Pre-Raid Gear Package (+$110)" },
   { value: "pvp-honor-set", label: "PvP Honor Set (+$110)" },
 ]
+
+const arenaBrackets = ["2v2", "3v3", "5v5"]
 
 const boostAddons = [
   { value: "pre-raid-gear", label: "Pre-Raid Gear Package", price: 110 },
@@ -101,6 +104,20 @@ function calculatePrice(data: Partial<OrderData>): number {
     return Math.max(21.99, (amount / 10) * 0.4626)
   }
   if (data.service === "boosting") {
+    if (data.boostType === "arena-rating") {
+      const rating = data.arenaRating || 1500
+      let total = 16.99 + ((rating - 1500) / (2200 - 1500)) * (325.99 - 16.99)
+      if (data.boostAddons && Array.isArray(data.boostAddons)) {
+        for (const addon of data.boostAddons) {
+          const found = boostAddons.find((a) => a.value === addon)
+          if (found) total += found.price
+        }
+      }
+      if (data.boostProfessions && Array.isArray(data.boostProfessions)) {
+        total += data.boostProfessions.length * 42.99
+      }
+      return total
+    }
     const basePrices: Record<string, number> = {
       "leveling-1-70": 181.99,
       "leveling-60-70": 105.99,
@@ -167,7 +184,10 @@ const [formData, setFormData] = useState<Partial<OrderData>>({
     if (step === 0) return !!formData.service
     if (step === 1) {
       if (formData.service === "gold") return !!formData.goldServer && !!formData.goldCharacter
-      if (formData.service === "boosting") return !!formData.boostType
+      if (formData.service === "boosting") {
+        if (formData.boostType === "arena-rating") return !!formData.arenaBracket && !!formData.arenaRating
+        return !!formData.boostType
+      }
       if (formData.service === "accounts") return !!formData.characterId || !!formData.accountType
     }
     if (step === 2) return !!formData.email && !!formData.discord && !!formData.paymentMethod
@@ -424,6 +444,80 @@ const [formData, setFormData] = useState<Partial<OrderData>>({
               {/* Character & Server - show for leveling */}
               {(formData.boostType === "leveling-1-70" || formData.boostType === "leveling-60-70") && (
                 <>
+                  <div>
+                    <Label className="mb-2 text-xs font-bold tracking-wider text-parchment/60 uppercase">Character Name</Label>
+                    <Input
+                      value={formData.boostCurrentLevel || ""}
+                      onChange={(e) => update({ boostCurrentLevel: e.target.value })}
+                      placeholder="Enter your character name"
+                      className="border-stone bg-stone-dark text-parchment placeholder:text-parchment/30"
+                    />
+                  </div>
+                  <div>
+                    <Label className="mb-2 text-xs font-bold tracking-wider text-parchment/60 uppercase">Server</Label>
+                    <Select value={formData.boostSchedule || ""} onValueChange={(v) => update({ boostSchedule: v })}>
+                      <SelectTrigger className="w-full border-stone bg-stone-dark text-parchment">
+                        <SelectValue placeholder="Select your server" />
+                      </SelectTrigger>
+                      <SelectContent className="border-stone bg-stone-dark">
+                        {servers.map((s) => (
+                          <SelectItem key={s} value={s} className="text-parchment">{s}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </>
+              )}
+
+              {/* Arena Rating Boost fields */}
+              {formData.boostType === "arena-rating" && (
+                <>
+                  <div>
+                    <Label className="mb-3 text-xs font-bold tracking-wider text-parchment/60 uppercase">Arena Bracket *</Label>
+                    <div className="flex gap-2">
+                      {arenaBrackets.map((bracket) => (
+                        <button
+                          key={bracket}
+                          type="button"
+                          onClick={() => update({ arenaBracket: bracket })}
+                          className={cn(
+                            "flex-1 rounded-lg border px-4 py-3 text-sm font-bold transition-all",
+                            formData.arenaBracket === bracket
+                              ? "border-fel-green/60 bg-fel-green/10 text-fel-green-glow"
+                              : "border-stone bg-stone-dark/50 text-parchment/50 hover:border-fel-green/30"
+                          )}
+                        >
+                          {bracket}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <Label className="mb-3 text-xs font-bold tracking-wider text-parchment/60 uppercase">
+                      Target Rating: <span className="text-fel-green-glow">{formData.arenaRating || 1500}</span>
+                    </Label>
+                    <Slider
+                      value={[formData.arenaRating || 1500]}
+                      onValueChange={([v]) => update({ arenaRating: v })}
+                      min={1500}
+                      max={2200}
+                      step={50}
+                      className="mt-2"
+                    />
+                    <div className="mt-2 flex justify-between text-[10px] text-parchment/30">
+                      <span>1500</span>
+                      <span>1700</span>
+                      <span>1850</span>
+                      <span>2050</span>
+                      <span>2200</span>
+                    </div>
+                    <div className="mt-3 rounded-lg border border-fel-green/20 bg-fel-green/5 px-4 py-2.5 text-center">
+                      <span className="text-xs text-parchment/50">Rating boost price: </span>
+                      <span className="text-sm font-black text-fel-green-glow">
+                        ${(16.99 + (((formData.arenaRating || 1500) - 1500) / (2200 - 1500)) * (325.99 - 16.99)).toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
                   <div>
                     <Label className="mb-2 text-xs font-bold tracking-wider text-parchment/60 uppercase">Character Name</Label>
                     <Input
@@ -786,6 +880,18 @@ const [formData, setFormData] = useState<Partial<OrderData>>({
                         <span className="text-sm text-parchment/50">Type</span>
                         <span className="text-sm text-parchment">{boostTypes.find((b) => b.value === formData.boostType)?.label}</span>
                       </div>
+                      {formData.boostType === "arena-rating" && formData.arenaBracket && (
+                        <div className="flex justify-between">
+                          <span className="text-sm text-parchment/50">Bracket</span>
+                          <span className="text-sm font-bold text-fel-green-glow">{formData.arenaBracket}</span>
+                        </div>
+                      )}
+                      {formData.boostType === "arena-rating" && formData.arenaRating && (
+                        <div className="flex justify-between">
+                          <span className="text-sm text-parchment/50">Target Rating</span>
+                          <span className="text-sm font-bold text-fel-green-glow">{formData.arenaRating}</span>
+                        </div>
+                      )}
                       {formData.boostCurrentLevel && (
                         <div className="flex justify-between">
                           <span className="text-sm text-parchment/50">Character</span>

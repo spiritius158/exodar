@@ -20,7 +20,7 @@ const serviceData = {
     features: [
       {
         title: "All Phase 1 Servers",
-        description: "We cover Nightslayer (PvP), Dreamscythe (PvE), and Thunderstrike (PvE). Both Horde and Alliance factions supported.",
+        description: "We cover Spineshatter (PvP), Nightslayer (PvP), Dreamscythe (PvE), and Thunderstrike (PvE). Both Horde and Alliance factions supported.",
       },
       {
         title: "Lightning-Fast Delivery",
@@ -52,7 +52,7 @@ const serviceData = {
     faq: [
       { q: "How fast is TBC Classic gold delivery?", a: "Most orders are delivered within 5-10 minutes via face-to-face trade on your server." },
       { q: "Is it safe for my account?", a: "Yes. We use face-to-face trades and take precautions to protect your account. Zero bans across thousands of deliveries." },
-      { q: "Which TBC servers do you support?", a: "Nightslayer (PvP), Dreamscythe (PvE), and Thunderstrike (PvE) - all Phase 1 Anniversary servers." },
+      { q: "Which TBC servers do you support?", a: "Spineshatter (PvP), Nightslayer (PvP), Dreamscythe (PvE), and Thunderstrike (PvE) - all Phase 1 Anniversary servers." },
       { q: "Can I get gold for epic flying?", a: "Absolutely. Our Flying Mount Fund package is specifically designed for the 5,000g epic flying skill." },
     ],
   },
@@ -86,6 +86,10 @@ const serviceData = {
         description: "Full PvP honor gear set farmed for your character. Battleground grinding done efficiently by experienced PvP players. Arrive in Arena fully equipped.",
       },
       {
+        title: "Arena Rating Boost",
+        description: "Get your desired arena rating in 2v2, 3v3, or 5v5 brackets. Our Gladiator-level pilots push your character to any rating from 1500 up to 2200. Merciless and Vengeful gear unlocks guaranteed.",
+      },
+      {
         title: "Safe & Secure Service",
         description: "Premium VPN protection matching your location. Natural play patterns and verified professional players. Your account stays safe with zero ban rate.",
       },
@@ -94,6 +98,7 @@ const serviceData = {
       { name: "Most Popular", amount: "Character Level 60-70", price: "$105.99", popular: true },
       { name: "Full Powerleveling", amount: "Character Level 1-70", price: "$181.99", popular: false },
       { name: "Profession Boost", amount: "Any Profession 0-375", price: "$42.99", popular: false },
+      { name: "Arena Rating Boost", amount: "Rating 1500-2200 (2v2/3v3/5v5)", price: "$16.99-$325.99", popular: false },
       { name: "PvP / Gear Add-on", amount: "Honor Set or Pre-Raid Gear", price: "+$110", popular: false },
     ],
     additionalPricing: [
@@ -112,6 +117,7 @@ const serviceData = {
       { q: "Can I add extras to my leveling order?", a: "Yes! Add Pre-Raid Gear, PvP Honor Set, heroic attunements, Karazhan attunement, flying skills, and profession boosts to any order. Ask on Discord for combo deal pricing." },
       { q: "How does the process work?", a: "After ordering, our manager contacts you on Discord to arrange account access. A professional player logs in via VPN and completes your order. You can track progress anytime." },
       { q: "What professions can you level?", a: "All 13 TBC professions: Alchemy, Blacksmithing, Enchanting, Engineering, Herbalism, Jewelcrafting, Leatherworking, Mining, Skinning, Tailoring, Cooking, First Aid, and Fishing. Each at $42.99." },
+      { q: "How does Arena Rating Boost work?", a: "Choose your bracket (2v2, 3v3, or 5v5) and target rating (1500-2200). Our Gladiator-experienced players pilot your character to the desired rating. Pricing scales linearly from $16.99 at 1500 to $325.99 at 2200." },
     ],
   },
   accounts: {

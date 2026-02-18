@@ -17,6 +17,8 @@ export type OrderData = {
   boostSchedule?: string
   boostAddons?: string[]
   boostProfessions?: string[]
+  arenaBracket?: string
+  arenaRating?: number
   // Account fields
   characterId?: string
   accountType?: string
@@ -52,6 +54,8 @@ function buildEmailHtml(order: OrderData): string {
   } else if (order.service === "boosting") {
     serviceDetails = `
       <tr><td style="padding:8px 16px;color:#8a7e6b;">Boost Type</td><td style="padding:8px 16px;color:#e8dcc8;">${order.boostType || "N/A"}</td></tr>
+      ${order.boostType === "arena-rating" && order.arenaBracket ? `<tr><td style="padding:8px 16px;color:#8a7e6b;">Arena Bracket</td><td style="padding:8px 16px;color:#39d353;font-weight:bold;">${order.arenaBracket}</td></tr>` : ""}
+      ${order.boostType === "arena-rating" && order.arenaRating ? `<tr><td style="padding:8px 16px;color:#8a7e6b;">Target Rating</td><td style="padding:8px 16px;color:#39d353;font-weight:bold;">${order.arenaRating}</td></tr>` : ""}
       <tr><td style="padding:8px 16px;color:#8a7e6b;">Character Name</td><td style="padding:8px 16px;color:#e8dcc8;">${order.boostCurrentLevel || "N/A"}</td></tr>
       <tr><td style="padding:8px 16px;color:#8a7e6b;">Server</td><td style="padding:8px 16px;color:#e8dcc8;">${order.boostSchedule || "N/A"}</td></tr>
       ${order.boostAddons && order.boostAddons.length > 0 ? `<tr><td style="padding:8px 16px;color:#8a7e6b;">Add-ons</td><td style="padding:8px 16px;color:#39d353;">${order.boostAddons.join(", ")}</td></tr>` : ""}
