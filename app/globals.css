@@ -1,0 +1,283 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #0a0a0f;
+  --foreground: #e8dcc8;
+  --card: #12121a;
+  --card-foreground: #e8dcc8;
+  --popover: #12121a;
+  --popover-foreground: #e8dcc8;
+  --primary: #c9a84c;
+  --primary-foreground: #0a0a0f;
+  --secondary: #1a1a2e;
+  --secondary-foreground: #e8dcc8;
+  --muted: #1a1a2e;
+  --muted-foreground: #8a7e6b;
+  --accent: #3b82f6;
+  --accent-foreground: #e8dcc8;
+  --destructive: #dc2626;
+  --destructive-foreground: #fef2f2;
+  --border: #2a2a3e;
+  --input: #1a1a2e;
+  --ring: #c9a84c;
+  --chart-1: #c9a84c;
+  --chart-2: #3b82f6;
+  --chart-3: #7c3aed;
+  --chart-4: #e8dcc8;
+  --chart-5: #8a7e6b;
+  --radius: 0.5rem;
+  --sidebar: #0a0a0f;
+  --sidebar-foreground: #e8dcc8;
+  --sidebar-primary: #c9a84c;
+  --sidebar-primary-foreground: #0a0a0f;
+  --sidebar-accent: #1a1a2e;
+  --sidebar-accent-foreground: #e8dcc8;
+  --sidebar-border: #2a2a3e;
+  --sidebar-ring: #c9a84c;
+
+  /* Custom WoW TBC theme tokens */
+  --gold: #c9a84c;
+  --gold-light: #e4c76b;
+  --gold-dark: #8b6914;
+  --mana-blue: #3b82f6;
+  --mana-blue-glow: #60a5fa;
+  --arcane-purple: #7c3aed;
+  --arcane-purple-glow: #a78bfa;
+  --fel-green: #39d353;
+  --fel-green-glow: #6ee77a;
+  --fel-green-dark: #1a7a28;
+  --fel-orange: #e05d20;
+  --fel-orange-glow: #f07838;
+  --parchment: #e8dcc8;
+  --parchment-dark: #c4b59a;
+  --stone: #2a2a3e;
+  --stone-dark: #12121a;
+  --deep-black: #0a0a0f;
+}
+
+@theme inline {
+  --font-sans: 'Cinzel', 'Georgia', serif;
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-serif: 'Cinzel Decorative', 'Georgia', serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Custom WoW theme colors */
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
+  --color-mana-blue: var(--mana-blue);
+  --color-mana-blue-glow: var(--mana-blue-glow);
+  --color-arcane-purple: var(--arcane-purple);
+  --color-arcane-purple-glow: var(--arcane-purple-glow);
+  --color-parchment: var(--parchment);
+  --color-parchment-dark: var(--parchment-dark);
+  --color-stone: var(--stone);
+  --color-stone-dark: var(--stone-dark);
+  --color-deep-black: var(--deep-black);
+  --color-fel-green: var(--fel-green);
+  --color-fel-green-glow: var(--fel-green-glow);
+  --color-fel-green-dark: var(--fel-green-dark);
+  --color-fel-orange: var(--fel-orange);
+  --color-fel-orange-glow: var(--fel-orange-glow);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Magical glow animations */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes mana-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-mana-flow {
+  background-size: 200% 200%;
+  animation: mana-flow 5s ease infinite;
+}
+
+/* Stone carved border effect */
+.stone-border {
+  border: 2px solid var(--stone);
+  box-shadow:
+    inset 0 1px 0 rgba(201, 168, 76, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+    0 0 15px rgba(59, 130, 246, 0.1),
+    0 0 30px rgba(124, 58, 237, 0.05);
+}
+
+/* Filigree gold border */
+.filigree-border {
+  border: 1px solid var(--gold-dark);
+  box-shadow:
+    inset 0 0 20px rgba(201, 168, 76, 0.05),
+    0 0 1px var(--gold),
+    0 0 10px rgba(201, 168, 76, 0.15);
+}
+
+/* Parchment card style */
+.parchment-card {
+  background: linear-gradient(145deg, #1a1a2e 0%, #12121a 50%, #1a1a2e 100%);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  box-shadow:
+    inset 0 0 30px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(59, 130, 246, 0.08),
+    0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* Mana glow effect */
+.mana-glow {
+  box-shadow:
+    0 0 10px rgba(59, 130, 246, 0.3),
+    0 0 30px rgba(59, 130, 246, 0.15),
+    0 0 60px rgba(124, 58, 237, 0.1);
+}
+
+/* Gold text shimmer */
+.gold-shimmer {
+  background: linear-gradient(90deg, #8b6914, #c9a84c, #e4c76b, #c9a84c, #8b6914);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* TBC Fel energy text glow */
+.fel-shimmer {
+  background: linear-gradient(90deg, #1a7a28, #39d353, #6ee77a, #39d353, #1a7a28);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Fel glow effect */
+.fel-glow {
+  box-shadow:
+    0 0 10px rgba(57, 211, 83, 0.2),
+    0 0 30px rgba(57, 211, 83, 0.1),
+    0 0 60px rgba(57, 211, 83, 0.05);
+}
+
+/* TBC Dark Portal energy border */
+.portal-border {
+  border: 1px solid rgba(57, 211, 83, 0.3);
+  box-shadow:
+    inset 0 0 20px rgba(57, 211, 83, 0.03),
+    0 0 1px rgba(57, 211, 83, 0.5),
+    0 0 15px rgba(57, 211, 83, 0.08);
+}
+
+/* Fel energy pulse */
+@keyframes fel-pulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(57, 211, 83, 0.15); }
+  50% { box-shadow: 0 0 30px rgba(57, 211, 83, 0.3), 0 0 60px rgba(57, 211, 83, 0.1); }
+}
+
+.animate-fel-pulse {
+  animation: fel-pulse 3s ease-in-out infinite;
+}
+
+/* Dark Portal swirl */
+@keyframes portal-swirl {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-portal-swirl {
+  animation: portal-swirl 20s linear infinite;
+}
+
+/* TBC ornamental divider */
+.tbc-divider {
+  position: relative;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(57, 211, 83, 0.3), rgba(201, 168, 76, 0.5), rgba(57, 211, 83, 0.3), transparent);
+}
+
+.tbc-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: #39d353;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(57, 211, 83, 0.6);
+}
