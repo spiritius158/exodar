@@ -50,6 +50,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly' as const,
       priority: 0.85,
     })),
+    {
+      url: `${siteUrl}/items`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
     // Item/service landing pages
     ...([
       'primal-nether-boost',
