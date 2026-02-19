@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useTransition } from "react"
-import { Coins, Sword, ScrollText, ArrowRight, ArrowLeft, Shield, Check, Loader2, ShieldCheck, Zap, Headphones } from "lucide-react"
+import { Coins, Sword, ScrollText, ArrowRight, ArrowLeft, Shield, Check, Loader2, ShieldCheck, Zap, Headphones, Package } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
@@ -37,7 +37,28 @@ const services = [
     color: "purple",
     description: "Level 70 TBC Classic characters with endgame gear.",
   },
+  {
+    id: "item" as const,
+    title: "Items & Services",
+    subtitle: "Farming & Crafting",
+    icon: Package,
+    color: "green",
+    description: "Primal Nethers, consumables, mounts, crafted gear, and more.",
+  },
 ]
+
+const itemCatalog: Record<string, { name: string; pricePerUnit: number; deliveryTime: string; category: string }> = {
+  "primal-nether-boost": { name: "Primal Nether (Heroic Carry)", pricePerUnit: 12.99, deliveryTime: "30-60 min", category: "Material" },
+  "primal-fire-farming": { name: "Primal Fire / Primal Might", pricePerUnit: 4.99, deliveryTime: "15-60 min", category: "Material" },
+  "talbuk-mount-farm": { name: "War Talbuk Mount (Rep Grind)", pricePerUnit: 64.99, deliveryTime: "3-5 days", category: "Mount" },
+  "cenarion-hippogryph-boost": { name: "Cenarion Hippogryph Mount", pricePerUnit: 89.99, deliveryTime: "5-7 days", category: "Mount" },
+  "eye-of-quagmirran-run": { name: "Eye of Quagmirran (Trinket Run)", pricePerUnit: 9.99, deliveryTime: "1-3 hrs", category: "Trinket" },
+  "badge-of-justice-farm": { name: "Badge of Justice Farm", pricePerUnit: 1.49, deliveryTime: "2-6 hrs", category: "Currency" },
+  "drums-of-battle-kit": { name: "Drums of Battle Kit (20x)", pricePerUnit: 34.99, deliveryTime: "1-2 hrs", category: "Consumable" },
+  "darkmoon-card-vengeance": { name: "Darkmoon Card: Vengeance", pricePerUnit: 149.99, deliveryTime: "2-5 days", category: "Trinket" },
+  "raid-consumables-bulk": { name: "Raid Consumables Bulk Pack", pricePerUnit: 24.99, deliveryTime: "1-3 hrs", category: "Consumable" },
+  "spellstrike-whitemend-craft": { name: "Spellstrike / Whitemend Craft", pricePerUnit: 79.99, deliveryTime: "1-2 days", category: "Craft" },
+}
 
 const servers = [
   "Spineshatter (PvP)", "Nightslayer (PvP)", "Dreamscythe (PvE)", "Thunderstrike (PvE)",
@@ -137,6 +158,11 @@ function calculatePrice(data: Partial<OrderData>): number {
     }
     return total
   }
+  if (data.service === "item") {
+    const item = data.itemSlug ? itemCatalog[data.itemSlug] : null
+    if (item) return item.pricePerUnit * (data.itemQuantity || 1)
+    return 0
+  }
   if (data.service === "accounts") {
     if (data.characterId) {
       const char = marketplaceCharacters.find((c) => c.id === Number(data.characterId))
@@ -154,13 +180,15 @@ function calculatePrice(data: Partial<OrderData>): number {
 
 const steps = ["Service", "Details", "Contact", "Review"]
 
-export function OrderForm({ initialService, initialCharacterId }: { initialService?: string; initialCharacterId?: string }) {
+export function OrderForm({ initialService, initialCharacterId, initialItemSlug, initialServer }: { initialService?: string; initialCharacterId?: string; initialItemSlug?: string; initialServer?: string }) {
 const [step, setStep] = useState(initialService ? 1 : 0)
   const [isPending, startTransition] = useTransition()
 
   const initialChar = initialCharacterId
     ? marketplaceCharacters.find((c) => c.id === Number(initialCharacterId))
     : null
+
+  const initialItem = initialItemSlug ? itemCatalog[initialItemSlug] : null
   
 const [formData, setFormData] = useState<Partial<OrderData>>({
   service: (initialService as OrderData["service"]) || undefined,
@@ -171,6 +199,12 @@ const [formData, setFormData] = useState<Partial<OrderData>>({
     accountType: initialChar.tier === "T4" ? "t4-geared" : initialChar.tier === "PvP" ? "pvp-geared" : "pre-raid",
     accountClass: initialChar.className,
     accountExpansion: initialChar.server,
+  } : {}),
+  ...(initialItemSlug && initialItem ? {
+    itemSlug: initialItemSlug,
+    itemName: initialItem.name,
+    itemQuantity: 1,
+    ...(initialServer ? { itemServer: initialServer } : {}),
   } : {}),
   })
 
@@ -189,6 +223,7 @@ const [formData, setFormData] = useState<Partial<OrderData>>({
         return !!formData.boostType
       }
       if (formData.service === "accounts") return !!formData.characterId || !!formData.accountType
+      if (formData.service === "item") return !!formData.itemSlug && !!formData.itemServer && !!formData.itemFaction
     }
     if (step === 2) return !!formData.email && !!formData.discord && !!formData.paymentMethod
     return true
@@ -291,7 +326,7 @@ const [formData, setFormData] = useState<Partial<OrderData>>({
           <div>
             <h2 className="mb-2 text-center text-xl font-black text-parchment sm:text-2xl">Select Your Service</h2>
             <p className="mb-8 text-center text-sm text-parchment/50">Choose the service you want to order.</p>
-            <div className="grid gap-4 sm:grid-cols-3">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {services.map((s) => {
                 const Icon = s.icon
                 const selected = formData.service === s.id
@@ -306,19 +341,21 @@ const [formData, setFormData] = useState<Partial<OrderData>>({
                           ? "border-gold/60 bg-gold/10 shadow-[0_0_30px_rgba(201,168,76,0.2)]"
                           : s.color === "blue"
                             ? "border-fel-green/60 bg-fel-green/10 shadow-[0_0_30px_rgba(57,211,83,0.15)]"
-                            : "border-fel-orange/60 bg-fel-orange/10 shadow-[0_0_30px_rgba(224,93,32,0.15)]"
+                            : s.color === "green"
+                              ? "border-emerald-500/60 bg-emerald-500/10 shadow-[0_0_30px_rgba(16,185,129,0.15)]"
+                              : "border-fel-orange/60 bg-fel-orange/10 shadow-[0_0_30px_rgba(224,93,32,0.15)]"
                         : "border-stone bg-stone-dark/50 hover:border-gold/30"
                     )}
                   >
                     <div className={cn(
                       "mb-4 flex h-14 w-14 items-center justify-center rounded-lg border",
                       selected
-                        ? s.color === "gold" ? "border-gold/40 bg-gold/20" : s.color === "blue" ? "border-fel-green/40 bg-fel-green/20" : "border-fel-orange/40 bg-fel-orange/20"
+                        ? s.color === "gold" ? "border-gold/40 bg-gold/20" : s.color === "blue" ? "border-fel-green/40 bg-fel-green/20" : s.color === "green" ? "border-emerald-500/40 bg-emerald-500/20" : "border-fel-orange/40 bg-fel-orange/20"
                         : "border-stone bg-stone-dark"
                     )}>
                       <Icon className={cn(
                         "h-7 w-7",
-                        s.color === "gold" ? "text-gold" : s.color === "blue" ? "text-fel-green-glow" : "text-fel-orange-glow"
+                        s.color === "gold" ? "text-gold" : s.color === "blue" ? "text-fel-green-glow" : s.color === "green" ? "text-emerald-400" : "text-fel-orange-glow"
                       )} />
                     </div>
                     <h3 className="mb-1 text-sm font-bold text-parchment">{s.title}</h3>
@@ -326,7 +363,7 @@ const [formData, setFormData] = useState<Partial<OrderData>>({
                     {selected && (
                       <div className={cn(
                         "mt-3 rounded-full px-3 py-1 text-[10px] font-bold tracking-wider uppercase",
-                        s.color === "gold" ? "bg-gold/20 text-gold" : s.color === "blue" ? "bg-fel-green/20 text-fel-green-glow" : "bg-fel-orange/20 text-fel-orange-glow"
+                        s.color === "gold" ? "bg-gold/20 text-gold" : s.color === "blue" ? "bg-fel-green/20 text-fel-green-glow" : s.color === "green" ? "bg-emerald-500/20 text-emerald-400" : "bg-fel-orange/20 text-fel-orange-glow"
                       )}>
                         Selected
                       </div>
@@ -770,6 +807,118 @@ const [formData, setFormData] = useState<Partial<OrderData>>({
           )
         })()}
 
+        {/* Step 1: Item Service */}
+        {step === 1 && formData.service === "item" && (() => {
+          const selectedItem = formData.itemSlug ? itemCatalog[formData.itemSlug] : null
+          return (
+            <div>
+              <h2 className="mb-2 text-center text-xl font-black text-parchment sm:text-2xl">Item / Service Order</h2>
+              <p className="mb-8 text-center text-sm text-parchment/50">Select the item or service and configure your order.</p>
+              <div className="flex flex-col gap-6">
+                <div>
+                  <Label className="mb-2 text-xs font-bold tracking-wider text-parchment/60 uppercase">Item / Service *</Label>
+                  <Select value={formData.itemSlug || ""} onValueChange={(v) => update({ itemSlug: v, itemName: itemCatalog[v]?.name })}>
+                    <SelectTrigger className="w-full border-stone bg-stone-dark text-parchment">
+                      <SelectValue placeholder="Select an item or service" />
+                    </SelectTrigger>
+                    <SelectContent className="border-stone bg-stone-dark">
+                      {Object.entries(itemCatalog).map(([slug, item]) => (
+                        <SelectItem key={slug} value={slug} className="text-parchment hover:bg-emerald-500/10">
+                          {item.name} — ${item.pricePerUnit.toFixed(2)}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {selectedItem && (
+                  <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/5 px-4 py-3">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="font-semibold text-emerald-400">{selectedItem.category}</span>
+                      <span className="text-parchment/40">Delivery: {selectedItem.deliveryTime}</span>
+                    </div>
+                  </div>
+                )}
+
+                <div>
+                  <Label className="mb-2 text-xs font-bold tracking-wider text-parchment/60 uppercase">Server / Realm *</Label>
+                  <Select value={formData.itemServer || ""} onValueChange={(v) => update({ itemServer: v })}>
+                    <SelectTrigger className="w-full border-stone bg-stone-dark text-parchment">
+                      <SelectValue placeholder="Select your server" />
+                    </SelectTrigger>
+                    <SelectContent className="border-stone bg-stone-dark">
+                      {servers.map((s) => (
+                        <SelectItem key={s} value={s} className="text-parchment hover:bg-emerald-500/10">{s}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label className="mb-2 text-xs font-bold tracking-wider text-parchment/60 uppercase">Faction *</Label>
+                  <div className="grid grid-cols-2 gap-3">
+                    {["Horde", "Alliance"].map((faction) => (
+                      <button
+                        key={faction}
+                        onClick={() => update({ itemFaction: faction })}
+                        className={cn(
+                          "rounded-lg border px-4 py-3 text-sm font-bold tracking-wider transition-all",
+                          formData.itemFaction === faction
+                            ? faction === "Horde" ? "border-red-500/60 bg-red-500/10 text-red-400" : "border-blue-500/60 bg-blue-500/10 text-blue-400"
+                            : "border-stone bg-stone-dark text-parchment/50 hover:border-gold/30"
+                        )}
+                      >
+                        {faction}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {selectedItem && !["Mount", "Trinket", "Craft"].includes(selectedItem.category) && (
+                  <div>
+                    <Label className="mb-2 text-sm font-bold tracking-wider text-parchment/80 uppercase">
+                      Quantity: <span className="text-xl font-black text-emerald-400">{formData.itemQuantity || 1}</span>
+                    </Label>
+                    <Slider
+                      value={[formData.itemQuantity || 1]}
+                      onValueChange={([v]) => update({ itemQuantity: v })}
+                      min={1}
+                      max={50}
+                      step={1}
+                      className="mt-3"
+                    />
+                    <div className="mt-2 flex justify-between text-[10px] text-parchment/30">
+                      <span>1</span>
+                      <span>50</span>
+                    </div>
+                  </div>
+                )}
+
+                <div>
+                  <Label className="mb-2 text-xs font-bold tracking-wider text-parchment/60 uppercase">Character Name</Label>
+                  <Input
+                    value={formData.itemCharacter || ""}
+                    onChange={(e) => update({ itemCharacter: e.target.value })}
+                    placeholder="Enter your character name"
+                    className="border-stone bg-stone-dark text-parchment placeholder:text-parchment/30"
+                  />
+                </div>
+
+                <div className="rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-5 text-center" style={{ boxShadow: '0 0 20px rgba(16,185,129,0.1)' }}>
+                  <span className="block text-xs font-semibold tracking-widest text-parchment/60 uppercase">Estimated Price</span>
+                  <span className="mt-1 block text-3xl font-black text-emerald-400">${price.toFixed(2)}</span>
+                  {selectedItem && (formData.itemQuantity || 1) > 1 && (
+                    <span className="mt-1 block text-[10px] text-parchment/40">
+                      {formData.itemQuantity} x ${selectedItem.pricePerUnit.toFixed(2)} each
+                    </span>
+                  )}
+                  <p className="mt-1 text-[10px] text-parchment/30">Final price confirmed on Discord before payment</p>
+                </div>
+              </div>
+            </div>
+          )
+        })()}
+
         {/* Step 2: Contact & Payment */}
         {step === 2 && (
           <div>
@@ -851,7 +1000,7 @@ const [formData, setFormData] = useState<Partial<OrderData>>({
                   <div className="flex justify-between">
                     <span className="text-sm text-parchment/50">Service</span>
                     <span className="text-sm font-bold text-parchment">
-                      {formData.service === "gold" ? "Gold Selling" : formData.service === "boosting" ? "Character Boosting" : "Accounts"}
+                      {formData.service === "gold" ? "Gold Selling" : formData.service === "boosting" ? "Character Boosting" : formData.service === "item" ? `Item: ${formData.itemName || "N/A"}` : "Accounts"}
                     </span>
                   </div>
                   {formData.service === "gold" && (
@@ -971,6 +1120,34 @@ const [formData, setFormData] = useState<Partial<OrderData>>({
                       </>
                     )
                   })()}
+                  {formData.service === "item" && (
+                    <>
+                      <div className="flex justify-between">
+                        <span className="text-sm text-parchment/50">Item</span>
+                        <span className="text-sm font-bold text-emerald-400">{formData.itemName}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-sm text-parchment/50">Server</span>
+                        <span className="text-sm text-parchment">{formData.itemServer}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-sm text-parchment/50">Faction</span>
+                        <span className="text-sm text-parchment">{formData.itemFaction}</span>
+                      </div>
+                      {(formData.itemQuantity || 1) > 1 && (
+                        <div className="flex justify-between">
+                          <span className="text-sm text-parchment/50">Quantity</span>
+                          <span className="text-sm text-parchment">{formData.itemQuantity}</span>
+                        </div>
+                      )}
+                      {formData.itemCharacter && (
+                        <div className="flex justify-between">
+                          <span className="text-sm text-parchment/50">Character</span>
+                          <span className="text-sm text-parchment">{formData.itemCharacter}</span>
+                        </div>
+                      )}
+                    </>
+                  )}
                 </div>
               </div>
 

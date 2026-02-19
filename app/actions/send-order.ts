@@ -4,7 +4,7 @@
 // when RESEND_API_KEY is not yet available at module load time.
 
 export type OrderData = {
-  service: "gold" | "boosting" | "accounts"
+  service: "gold" | "boosting" | "accounts" | "item"
   // Gold fields
   goldServer?: string
   goldFaction?: string
@@ -24,6 +24,13 @@ export type OrderData = {
   accountType?: string
   accountClass?: string
   accountExpansion?: string
+  // Item fields
+  itemSlug?: string
+  itemName?: string
+  itemServer?: string
+  itemFaction?: string
+  itemQuantity?: number
+  itemCharacter?: string
   // Contact
   email: string
   discord: string
@@ -40,11 +47,20 @@ function buildEmailHtml(order: OrderData): string {
     gold: "Gold Selling",
     boosting: "Character Boosting",
     accounts: "Accounts",
+    item: `Item/Service: ${order.itemName || order.itemSlug || "N/A"}`,
   }
 
   let serviceDetails = ""
 
-  if (order.service === "gold") {
+  if (order.service === "item") {
+    serviceDetails = `
+      <tr><td style="padding:8px 16px;color:#8a7e6b;">Item/Service</td><td style="padding:8px 16px;color:#c9a84c;font-weight:bold;">${order.itemName || order.itemSlug || "N/A"}</td></tr>
+      <tr><td style="padding:8px 16px;color:#8a7e6b;">Server</td><td style="padding:8px 16px;color:#e8dcc8;">${order.itemServer || "N/A"}</td></tr>
+      <tr><td style="padding:8px 16px;color:#8a7e6b;">Faction</td><td style="padding:8px 16px;color:#e8dcc8;">${order.itemFaction || "N/A"}</td></tr>
+      <tr><td style="padding:8px 16px;color:#8a7e6b;">Quantity</td><td style="padding:8px 16px;color:#e8dcc8;">${order.itemQuantity || 1}</td></tr>
+      <tr><td style="padding:8px 16px;color:#8a7e6b;">Character Name</td><td style="padding:8px 16px;color:#e8dcc8;">${order.itemCharacter || "N/A"}</td></tr>
+    `
+  } else if (order.service === "gold") {
     serviceDetails = `
       <tr><td style="padding:8px 16px;color:#8a7e6b;">Server / Realm</td><td style="padding:8px 16px;color:#e8dcc8;">${order.goldServer || "N/A"}</td></tr>
       <tr><td style="padding:8px 16px;color:#8a7e6b;">Faction</td><td style="padding:8px 16px;color:#e8dcc8;">${order.goldFaction || "N/A"}</td></tr>
@@ -150,6 +166,7 @@ export async function sendOrder(
       gold: "Gold Selling",
       boosting: "Character Boosting",
       accounts: "Accounts",
+      item: `Item/Service: ${order.itemName || order.itemSlug || "N/A"}`,
     }
 
     // Dynamic import to avoid any top-level side effects
