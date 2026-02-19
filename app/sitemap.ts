@@ -60,6 +60,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...([
       'primal-nether-boost',
       'primal-fire-farming',
+      'primal-might-transmute',
       'talbuk-mount-farm',
       'cenarion-hippogryph-boost',
       'eye-of-quagmirran-run',

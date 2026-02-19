@@ -49,7 +49,8 @@ const services = [
 
 const itemCatalog: Record<string, { name: string; pricePerUnit: number; deliveryTime: string; category: string }> = {
   "primal-nether-boost": { name: "Primal Nether (Heroic Carry)", pricePerUnit: 12.99, deliveryTime: "30-60 min", category: "Material" },
-  "primal-fire-farming": { name: "Primal Fire / Primal Might", pricePerUnit: 4.99, deliveryTime: "15-60 min", category: "Material" },
+  "primal-fire-farming": { name: "Primal Fire", pricePerUnit: 4.99, deliveryTime: "15-60 min", category: "Material" },
+  "primal-might-transmute": { name: "Primal Might", pricePerUnit: 14.99, deliveryTime: "1-24 hrs", category: "Material" },
   "talbuk-mount-farm": { name: "War Talbuk Mount (Rep Grind)", pricePerUnit: 64.99, deliveryTime: "3-5 days", category: "Mount" },
   "cenarion-hippogryph-boost": { name: "Cenarion Hippogryph Mount", pricePerUnit: 89.99, deliveryTime: "5-7 days", category: "Mount" },
   "eye-of-quagmirran-run": { name: "Eye of Quagmirran (Trinket Run)", pricePerUnit: 9.99, deliveryTime: "1-3 hrs", category: "Trinket" },

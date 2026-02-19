@@ -9,6 +9,7 @@ import type { Metadata } from "next"
 type ItemKey =
   | "primal-nether-boost"
   | "primal-fire-farming"
+  | "primal-might-transmute"
   | "talbuk-mount-farm"
   | "cenarion-hippogryph-boost"
   | "eye-of-quagmirran-run"
@@ -66,30 +67,57 @@ const itemData: Record<ItemKey, ItemData> = {
     ],
   },
   "primal-fire-farming": {
-    name: "Primal Fire / Primal Might",
+    name: "Primal Fire",
     shortName: "Primal Fire",
     category: "Material",
     icon: "/images/classes/mage.png",
-    metaTitle: "Cheap Primal Fire & Primal Might - TBC Anniversary Phase 1 2026",
-    metaDescription: "Buy cheap Primal Fire and Primal Might farming service for TBC Anniversary. Essential for Spellstrike and Shadoweave sets. All Phase 1 servers supported.",
-    h1: "Buy Primal Fire & Primal Might - TBC Anniversary Phase 1",
-    subtitle: "Cheap Primals Delivered to Your Mailbox",
-    heroText: "Primal Fire and Primal Might are the most expensive crafting materials on the TBC Anniversary auction house. Skip the hours of farming Elemental Plateau and let us deliver Primals directly to your character via mail or trade. Essential for Spellstrike set, Shadoweave set, and alchemy transmutes.",
-    bodyTitle: "Primal Fire & Primal Might Farming Service - Phase 1 2026",
-    bodyText: "Primal Fire drops from fire elementals in Hellfire Peninsula and Nagrand's Elemental Plateau, but farming is slow and competitive on high-population servers like Spineshatter. Primal Might is created via Alchemy transmute (1 of each Primal element) and has a 24-hour cooldown. Our dedicated farming team produces hundreds of Primals daily across all TBC Anniversary servers. We deliver via face-to-face trade or CoD mail at prices significantly below auction house rates.",
+    metaTitle: "Buy Cheap Primal Fire - TBC Anniversary Phase 1 2026",
+    metaDescription: "Buy cheap Primal Fire for TBC Anniversary Edition. Essential for Spellstrike set, Shadoweave crafting, and Flask of Pure Death. All Phase 1 servers supported.",
+    h1: "Buy Primal Fire - TBC Anniversary Phase 1",
+    subtitle: "Cheapest Primal Fire Delivered to Your Character",
+    heroText: "Primal Fire is one of the most in-demand crafting materials in TBC Phase 1. Essential for Spellstrike set, Shadoweave set, Flask of Pure Death, and dozens of other recipes. Skip the crowded Elemental Plateau farming and let us deliver Primal Fire directly to your character.",
+    bodyTitle: "Primal Fire Farming Service - Phase 1 2026",
+    bodyText: "Primal Fire drops from fire elementals in Hellfire Peninsula and Nagrand's Elemental Plateau, but farming is slow and extremely competitive on high-population servers like Spineshatter. Each Primal Fire requires 10 Mote of Fire, meaning dozens of kills per Primal. Our dedicated farming team produces hundreds of Primal Fires daily across all TBC Anniversary servers. We deliver via face-to-face trade or CoD mail at prices significantly below auction house rates.",
     howItWorks: [
-      { step: "Choose Quantity", desc: "Select how many Primal Fire or Primal Might you need." },
+      { step: "Choose Quantity", desc: "Select how many Primal Fire you need." },
       { step: "Pick Server & Faction", desc: "We support all TBC Anniversary servers - Spineshatter, Thunderstrike, Nightslayer, Dreamscythe." },
-      { step: "We Farm or Transmute", desc: "Our farming team gathers the materials. Primal Might is transmuted by our Alchemists." },
-      { step: "Delivery", desc: "Primals delivered via face-to-face trade in Shattrath or by CoD mail." },
+      { step: "We Farm", desc: "Our farming team gathers Motes of Fire and combines them into Primals." },
+      { step: "Delivery", desc: "Primal Fire delivered via face-to-face trade in Shattrath or by CoD mail." },
     ],
-    priceRange: "$2.49 - $18.99",
+    priceRange: "$4.49 - $5.49",
     deliveryTime: "15-60 min",
     serverPrices: { spineshatter: 4.99, thunderstrike: 4.49, nightslayer: 4.79, dreamscythe: 5.49 },
     faq: [
-      { q: "What is the price per Primal Fire?", a: "Primal Fire costs $4.49-$5.49 each depending on server. Primal Might costs $16.99-$18.99 each. Bulk orders of 10+ receive a 10% discount." },
+      { q: "What is the price per Primal Fire?", a: "Primal Fire costs $4.49-$5.49 each depending on server population and stock. Bulk orders of 10+ receive a 10% discount." },
       { q: "How is delivery handled?", a: "We deliver via face-to-face trade in Shattrath City or major capital cities. We can also send via CoD mail if preferred." },
-      { q: "Can I buy other Primals too?", a: "Yes! We sell all Primal types: Fire, Water, Earth, Air, Life, Mana, and Shadow. Primal Might is also available. Ask on Discord for bulk pricing." },
+      { q: "Can I buy other Primals too?", a: "Yes! We sell all Primal types: Fire, Water, Earth, Air, Life, Mana, and Shadow. We also sell Primal Might separately. Ask on Discord for bulk pricing." },
+    ],
+  },
+  "primal-might-transmute": {
+    name: "Primal Might",
+    shortName: "Primal Might",
+    category: "Material",
+    icon: "/images/classes/mage.png",
+    metaTitle: "Buy Primal Might - TBC Anniversary Phase 1 Cheapest Price 2026",
+    metaDescription: "Buy Primal Might for TBC Anniversary Edition. Created via Alchemy transmute, essential for Spellstrike, Whitemend, and epic crafted gear. All Phase 1 servers.",
+    h1: "Buy Primal Might - TBC Anniversary Phase 1",
+    subtitle: "Alchemy Transmute Primal Might - No Cooldown Waiting",
+    heroText: "Primal Might is the rarest and most valuable crafting material in TBC Phase 1. Created by Alchemists via a 24-hour transmute cooldown, it's required for Spellstrike set, Whitemend set, Lionheart Executioner, and many other epic crafted items. Don't wait days for cooldowns -- buy Primal Might directly.",
+    bodyTitle: "Primal Might Service - Phase 1 2026",
+    bodyText: "Primal Might is created via Alchemy Transmute: Primal Might, which requires 1 Primal Fire, 1 Primal Water, 1 Primal Earth, 1 Primal Air, and 1 Primal Mana. The transmute has a 24-hour cooldown per Alchemist, making Primal Might extremely scarce and expensive on the auction house. Our team operates dozens of max-level Alchemists across all TBC Anniversary servers, producing Primal Might daily. We deliver at prices well below AH rates.",
+    howItWorks: [
+      { step: "Choose Quantity", desc: "Select how many Primal Might you need." },
+      { step: "Pick Server & Faction", desc: "We support all TBC Anniversary servers - Spineshatter, Thunderstrike, Nightslayer, Dreamscythe." },
+      { step: "We Transmute", desc: "Our Alchemists transmute Primal Might using their daily cooldowns." },
+      { step: "Delivery", desc: "Primal Might delivered via face-to-face trade in Shattrath or by CoD mail." },
+    ],
+    priceRange: "$13.99 - $15.99",
+    deliveryTime: "1-24 hrs",
+    serverPrices: { spineshatter: 14.99, thunderstrike: 13.99, nightslayer: 14.49, dreamscythe: 15.99 },
+    faq: [
+      { q: "Why is Primal Might so expensive?", a: "Primal Might requires a 24-hour Alchemy cooldown and 5 different Primals to create. Supply is very limited compared to the massive demand for epic crafted gear in Phase 1." },
+      { q: "How fast is Primal Might delivery?", a: "Delivery depends on stock. If we have Primal Might in stock, delivery is within 30 minutes. If we need to transmute, it may take up to 24 hours." },
+      { q: "Can I buy Primal Might in bulk?", a: "Yes! Orders of 5+ Primal Might receive a 10% discount. Contact us on Discord for large order pricing." },
     ],
   },
   "talbuk-mount-farm": {
