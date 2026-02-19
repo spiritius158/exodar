@@ -65,14 +65,7 @@ export function GoldPriceTable({ highlightServer }: GoldPriceTableProps) {
                       ? "border-red-500/30 bg-red-500/10 text-red-400"
                       : "border-blue-500/30 bg-blue-500/10 text-blue-400"
                   )}>
-                    <img
-                      src={row.faction === "Horde" ? "/images/horde-crest.png" : "/images/alliance-crest.png"}
-                      alt={row.faction === "Horde" ? "Horde crest icon" : "Alliance lion crest icon"}
-                      width={12}
-                      height={12}
-                      className="h-3 w-3"
-                      loading="lazy"
-                    />
+                    <span className={cn("inline-block h-2 w-2 rounded-full", row.faction === "Horde" ? "bg-red-400" : "bg-blue-400")} aria-hidden="true" />
                     {row.faction}
                   </span>
                 </td>
