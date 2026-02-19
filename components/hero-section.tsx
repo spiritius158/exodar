@@ -30,29 +30,38 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-5xl px-4 text-center">
         {/* Top badge */}
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-fel-green/30 bg-deep-black/70 px-5 py-2.5 backdrop-blur-sm animate-fel-pulse">
+        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-red-500/40 bg-red-500/10 px-5 py-2 backdrop-blur-sm animate-fel-pulse">
+          <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
+          <span className="text-xs font-bold tracking-widest text-red-400 uppercase">
+            Phase 1 Launch Sale - Limited Time
+          </span>
+        </div>
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-fel-green/30 bg-deep-black/70 px-5 py-2.5 backdrop-blur-sm">
           <div className="h-2 w-2 rounded-full bg-fel-green animate-pulse" />
           <span className="text-xs font-semibold tracking-widest text-fel-green-glow uppercase">
-            The Burning Crusade Anniversary Edition
+            TBC Classic Anniversary Edition 2026
           </span>
         </div>
 
         {/* Main heading */}
         <h1 className="mb-6 text-4xl font-black leading-tight tracking-tight sm:text-5xl md:text-7xl">
-          <span className="block text-parchment">Beyond the</span>
-          <span className="block fel-shimmer mt-2">Dark Portal</span>
+          <span className="block text-parchment text-balance">Dominate Outland</span>
+          <span className="block fel-shimmer mt-2 text-balance">From Day One</span>
         </h1>
 
         {/* TBC Ornamental divider */}
         <div className="mx-auto mb-6 tbc-divider w-48 sm:w-64" aria-hidden="true" />
 
-        <p className="mx-auto mb-4 max-w-3xl text-base leading-relaxed text-parchment/70 sm:text-lg font-bold">
-          Buy TBC Anniversary Gold & Boosting - Phase 1 2026
+        <p className="mx-auto mb-4 max-w-3xl text-base leading-relaxed text-parchment/80 sm:text-lg font-black text-balance">
+          Buy TBC Anniversary Gold, Leveling & Geared Characters - Delivered in Under 10 Minutes
         </p>
-        <p className="mx-auto mb-6 max-w-2xl text-sm leading-relaxed text-parchment/50 sm:text-base">
-          Buy TBC Anniversary gold on Spineshatter and Thunderstrike. Classic TBC leveling boost 58-70,
-          profession boost jewelcrafting 1-375, and Phase 1 Karazhan-ready accounts.
-          Cheap TBC fresh gold with instant face-to-face delivery.
+        <p className="mx-auto mb-3 max-w-2xl text-sm leading-relaxed text-parchment/50 sm:text-base">
+          Everyone else is grinding for weeks. You? Karazhan-attuned by tonight.
+          Buy TBC Anniversary gold on Spineshatter & Thunderstrike, classic TBC leveling boost 58-70,
+          profession boost jewelcrafting 1-375, Primal Nethers, epic mounts, and Phase 1 raid-ready accounts.
+        </p>
+        <p className="mx-auto mb-6 max-w-xl text-xs leading-relaxed text-gold/60 sm:text-sm font-semibold">
+          Cheapest TBC fresh gold guaranteed -- face-to-face delivery, zero bans across 3,400+ orders.
         </p>
 
         {/* Discord CTA banner */}
@@ -76,15 +85,15 @@ export function HeroSection() {
         <div className="mx-auto mb-10 flex flex-wrap items-center justify-center gap-4">
           <span className="flex items-center gap-1 text-[10px] font-semibold tracking-wider text-gold/60 uppercase">
             <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            Instant Delivery
+            Gold in Under 10 Min
           </span>
           <span className="flex items-center gap-1 text-[10px] font-semibold tracking-wider text-gold/60 uppercase">
             <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-            Lowest Prices
+            Zero Ban Guarantee
           </span>
           <span className="hidden items-center gap-1 text-[10px] font-semibold tracking-wider text-gold/60 uppercase sm:flex">
             <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            Combo Deals
+            Gold + Items + Boosts + Accounts
           </span>
         </div>
 
@@ -92,25 +101,25 @@ export function HeroSection() {
         <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
             href="/order"
-            className="group relative overflow-hidden rounded-lg px-8 py-4 text-sm font-bold tracking-widest text-deep-black uppercase bg-gradient-to-r from-gold via-gold-light to-gold transition-all hover:shadow-[0_0_30px_rgba(201,168,76,0.5),0_0_60px_rgba(57,211,83,0.15)]"
+            className="group relative overflow-hidden rounded-lg px-10 py-4 text-sm font-black tracking-widest text-deep-black uppercase bg-gradient-to-r from-gold via-gold-light to-gold transition-all hover:shadow-[0_0_30px_rgba(201,168,76,0.5),0_0_60px_rgba(57,211,83,0.15)] hover:scale-105"
           >
-            <span className="relative z-10">Enter Outland</span>
+            <span className="relative z-10">Get Gold Now</span>
           </Link>
           <Link
             href="/#services"
-            className="rounded-lg border border-fel-green/30 bg-deep-black/40 px-8 py-4 text-sm font-bold tracking-widest text-fel-green-glow uppercase backdrop-blur-sm transition-all hover:border-fel-green/60 hover:bg-fel-green/5 hover:shadow-[0_0_20px_rgba(57,211,83,0.15)]"
+            className="rounded-lg border border-fel-green/30 bg-deep-black/40 px-10 py-4 text-sm font-black tracking-widest text-fel-green-glow uppercase backdrop-blur-sm transition-all hover:border-fel-green/60 hover:bg-fel-green/5 hover:shadow-[0_0_20px_rgba(57,211,83,0.15)]"
           >
-            Explore Services
+            See All Services
           </Link>
         </div>
 
         {/* Trust stats */}
         <div className="mt-16 grid grid-cols-4 gap-4 sm:gap-8">
           {[
-            { value: "99.8%", label: "Delivery Rate" },
-            { value: "24/7", label: "Discord Support" },
+            { value: "3,400+", label: "Happy Customers" },
+            { value: "0", label: "Bans Ever" },
             { value: "<10min", label: "Avg Delivery" },
-            { value: "Best", label: "Price Guarantee" },
+            { value: "15% Off", label: "Phase 1 Sale" },
           ].map((stat) => (
             <div key={stat.label} className="flex flex-col items-center">
               <span className="text-xl font-black text-fel-green-glow sm:text-3xl">{stat.value}</span>
