@@ -144,17 +144,14 @@ function buildEmailHtml(order: OrderData): string {
 export async function sendOrder(
   order: OrderData
 ): Promise<{ success: boolean; message: string }> {
-  console.log("[v0] sendOrder called - checking env...")
   try {
     if (!order.email || !order.discord || !order.service) {
       return { success: false, message: "Please fill in all required fields." }
     }
 
     const apiKey = process.env.RESEND_API_KEY
-    console.log("[v0] RESEND_API_KEY present:", !!apiKey, "key length:", apiKey ? apiKey.length : 0)
 
     if (!apiKey || apiKey.length < 5) {
-      console.error("[v0] RESEND_API_KEY is missing or invalid")
       return {
         success: false,
         message:
@@ -173,7 +170,7 @@ export async function sendOrder(
     const { Resend } = await import("resend")
     const resend = new Resend(apiKey)
 
-    console.log("[v0] Sending email via Resend...")
+
     const { data, error } = await resend.emails.send({
       from: "Exodar Market <onboarding@resend.dev>",
       to: "exodarmarket@proton.me",
@@ -182,20 +179,19 @@ export async function sendOrder(
     })
 
     if (error) {
-      console.error("[v0] Resend API error:", error)
+  
       return {
         success: false,
         message: "Failed to send order. Please try again or contact us on Discord (exodarmarket111).",
       }
     }
 
-    console.log("[v0] Email sent successfully, id:", data?.id)
     return {
       success: true,
       message: "Order submitted successfully! We'll contact you on Discord shortly.",
     }
   } catch (err) {
-    console.error("[v0] Order submission error:", err)
+
     return {
       success: false,
       message: "An unexpected error occurred. Please contact us on Discord (exodarmarket111).",
