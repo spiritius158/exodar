@@ -8,6 +8,16 @@ import type { Metadata } from "next"
 export const metadata: Metadata = {
   title: "Place Order - Exodar Market | TBC Classic Anniversary",
   description: "Order WoW TBC Classic Anniversary Edition gold, character boosting, or premium accounts. Fast, secure delivery with 24/7 support.",
+  alternates: {
+    canonical: "/order",
+  },
+  openGraph: {
+    title: "Place Order - Exodar Market",
+    description: "Order WoW TBC Classic Anniversary Edition gold, boosting, or premium accounts. Fast, secure delivery.",
+    url: "/order",
+    type: "website",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Exodar Market - Place Order" }],
+  },
 }
 
 const trustBadges = [

@@ -218,9 +218,29 @@ export async function generateMetadata({ params }: { params: Promise<{ service: 
   const { service } = await params
   const data = serviceData[service as ServiceKey]
   if (!data) return { title: "Service Not Found" }
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://exodar.market"
+  const pageUrl = `${siteUrl}/services/${service}`
+
   return {
     title: `${data.title} - Exodar Market | TBC Classic Anniversary`,
     description: data.heroDescription,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${data.title} - Exodar Market`,
+      description: data.heroDescription,
+      url: pageUrl,
+      type: "website",
+      images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: data.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${data.title} - Exodar Market`,
+      description: data.heroDescription,
+      images: ["/og-image.jpg"],
+    },
   }
 }
 
