@@ -231,25 +231,29 @@ const [formData, setFormData] = useState<Partial<OrderData>>({
 
   const handleSubmit = () => {
     startTransition(async () => {
-      const orderData: OrderData = {
-        ...formData,
-        service: formData.service!,
-        email: formData.email || "",
-        discord: formData.discord || "",
-        paymentMethod: formData.paymentMethod || "",
-        totalPrice: price,
-      }
+      try {
+        const orderData: OrderData = {
+          ...formData,
+          service: formData.service!,
+          email: formData.email || "",
+          discord: formData.discord || "",
+          paymentMethod: formData.paymentMethod || "",
+          totalPrice: price,
+        }
 
-      const result = await sendOrder(orderData)
+        const result = await sendOrder(orderData)
 
-      if (result.success) {
-        toast.success(result.message, {
-          description: "Check your email for confirmation.",
-          duration: 6000,
-        })
-        setStep(4) // success state
-      } else {
-        toast.error(result.message, { duration: 5000 })
+        if (result.success) {
+          toast.success(result.message, {
+            description: "Check your email for confirmation.",
+            duration: 6000,
+          })
+          setStep(4) // success state
+        } else {
+          toast.error(result.message, { duration: 5000 })
+        }
+      } catch {
+        toast.error("Failed to submit order. Please contact us on Discord (exodarmarket111).", { duration: 5000 })
       }
     })
   }

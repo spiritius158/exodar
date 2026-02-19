@@ -166,12 +166,20 @@ export async function sendOrder(
       item: `Item/Service: ${order.itemName || order.itemSlug || "N/A"}`,
     }
 
-    // Dynamic import to avoid any top-level side effects
-    const { Resend } = await import("resend")
+    let Resend: typeof import("resend").Resend
+    try {
+      const mod = await import("resend")
+      Resend = mod.Resend
+    } catch {
+      return {
+        success: false,
+        message: "Email service unavailable. Please contact us on Discord (exodarmarket111) to place your order.",
+      }
+    }
+
     const resend = new Resend(apiKey)
 
-
-    const { data, error } = await resend.emails.send({
+    const { error } = await resend.emails.send({
       from: "Exodar Market <onboarding@resend.dev>",
       to: "exodarmarket@proton.me",
       subject: `[TBC Classic Anniversary] New Order: ${serviceLabels[order.service]} - $${order.totalPrice.toFixed(2)}`,
@@ -179,7 +187,6 @@ export async function sendOrder(
     })
 
     if (error) {
-  
       return {
         success: false,
         message: "Failed to send order. Please try again or contact us on Discord (exodarmarket111).",
@@ -190,8 +197,7 @@ export async function sendOrder(
       success: true,
       message: "Order submitted successfully! We'll contact you on Discord shortly.",
     }
-  } catch (err) {
-
+  } catch {
     return {
       success: false,
       message: "An unexpected error occurred. Please contact us on Discord (exodarmarket111).",
