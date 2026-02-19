@@ -38,7 +38,7 @@ export function Footer() {
   return (
     <footer className="relative border-t border-fel-green/10 bg-deep-black">
       <div className="mx-auto max-w-7xl px-4 py-12 lg:px-8 lg:py-16">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-6">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="mb-4 flex items-center gap-2">
@@ -90,6 +90,20 @@ export function Footer() {
             <h4 className="mb-4 text-[10px] font-bold tracking-[0.3em] text-gold uppercase">Buy Gold</h4>
             <ul className="flex flex-col gap-2">
               {links.goldServers.map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href} className="text-xs text-parchment/40 transition-colors hover:text-parchment">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Items & Boosts */}
+          <div>
+            <h4 className="mb-4 text-[10px] font-bold tracking-[0.3em] text-gold uppercase">Items & Boosts</h4>
+            <ul className="flex flex-col gap-2">
+              {links.items.map((link) => (
                 <li key={link.label}>
                   <Link href={link.href} className="text-xs text-parchment/40 transition-colors hover:text-parchment">
                     {link.label}
