@@ -34,5 +34,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    // Server-specific gold landing pages
+    ...([
+      'spineshatter-horde',
+      'spineshatter-alliance',
+      'thunderstrike-horde',
+      'thunderstrike-alliance',
+      'nightslayer-horde',
+      'nightslayer-alliance',
+      'dreamscythe-horde',
+      'dreamscythe-alliance',
+    ] as const).map((server) => ({
+      url: `${siteUrl}/gold/${server}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.85,
+    })),
   ]
 }

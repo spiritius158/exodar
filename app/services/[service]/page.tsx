@@ -3,6 +3,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { CharacterMarketplace } from "@/components/character-marketplace"
 import { GoldCalculator } from "@/components/gold-calculator-wrapper"
+import { GoldPriceTable } from "@/components/gold-price-table"
 import { Shield, Zap, Clock, Headphones, Star, ShieldCheck, Coins, Sword, ScrollText, ArrowRight, Check } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -12,9 +13,10 @@ import type { Metadata } from "next"
 const serviceData = {
   gold: {
     title: "Gold Selling",
-    subtitle: "Outland Riches Delivered Fast",
+    metaTitle: "Buy TBC Anniversary Gold - Phase 1 Cheapest Prices 2026",
+    subtitle: "Buy TBC Anniversary Gold - Cheapest Phase 1 Prices",
     heroDescription:
-      "Stock up on TBC Classic Anniversary Edition gold for your epic flying mount, raid consumables, crafted gear, and auction house investments. All servers and factions supported with face-to-face delivery.",
+      "Buy TBC Anniversary gold for your epic flying mount, raid consumables, crafted gear, and auction house investments. Cheap TBC fresh gold on Spineshatter, Thunderstrike, and all Phase 1 servers with face-to-face delivery.",
     image: "/images/gold-selling.jpg",
     icon: Coins,
     color: "gold",
@@ -59,9 +61,10 @@ const serviceData = {
   },
   boosting: {
     title: "Character Boosting",
-    subtitle: "Powerleveling & Boosting Services",
+    metaTitle: "TBC Classic Leveling Boost 58-70 & Profession Boost - Phase 1 2026",
+    subtitle: "Classic TBC Leveling Boost 58-70 & Professions",
     heroDescription:
-      "Buy WoW TBC Classic Anniversary boosting and achieve your desired character level quickly and effortlessly. Our professional players handle the grind while you enjoy the rewards. Leveling, gear farming, professions, and PvP - all done by verified TBC veterans.",
+      "Classic TBC leveling boost 58-70 and full 1-70 powerleveling for TBC Anniversary Edition. Profession boost jewelcrafting 1-375, arena rating boost, pre-raid gear farming, and PvP honor sets. All Phase 1 servers supported by verified TBC veterans.",
     image: "/images/character-boosting.jpg",
     icon: Sword,
     color: "blue",
@@ -123,9 +126,10 @@ const serviceData = {
   },
   accounts: {
     title: "Character Marketplace",
-    subtitle: "Pre-Built TBC Characters Ready for Outland",
+    metaTitle: "TBC Anniversary Characters for Sale - Phase 1 Geared Accounts 2026",
+    subtitle: "Phase 1 Geared TBC Characters for Sale",
     heroDescription:
-      "Browse our marketplace of 60 pre-built World of Warcraft: TBC Classic Anniversary Edition Phase 1 characters. Every character is level 70, geared for Karazhan, Gruul, and Magtheridon, or PvP Arena.",
+    "Browse 160 Phase 1 TBC Classic Anniversary characters on Spineshatter, Thunderstrike, Nightslayer, and Dreamscythe. Level 70, Karazhan-attuned, Pre-BiS geared, and ready for Outland endgame. All classes and factions available.",
     image: "/images/accounts.jpg",
     icon: ScrollText,
     color: "purple",
@@ -222,22 +226,24 @@ export async function generateMetadata({ params }: { params: Promise<{ service: 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://exodar.market"
   const pageUrl = `${siteUrl}/services/${service}`
 
+  const title = "metaTitle" in data ? (data as { metaTitle: string }).metaTitle : `${data.title} - TBC Classic Anniversary Phase 1 2026`
+
   return {
-    title: `${data.title} - Exodar Market | TBC Classic Anniversary`,
+    title,
     description: data.heroDescription,
     alternates: {
       canonical: pageUrl,
     },
     openGraph: {
-      title: `${data.title} - Exodar Market`,
+      title,
       description: data.heroDescription,
       url: pageUrl,
       type: "website",
-      images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: data.title }],
+      images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${data.title} - Exodar Market`,
+      title,
       description: data.heroDescription,
       images: ["/og-image.jpg"],
     },
@@ -440,7 +446,20 @@ export default async function ServicePage({ params }: { params: Promise<{ servic
                 </div>
               ))}
             </div>
-            {service === "gold" && <GoldCalculator />}
+            {service === "gold" && (
+              <>
+                <GoldCalculator />
+                <div className="mt-16">
+                  <h3 className="mb-4 text-center text-xl font-black tracking-tight text-parchment sm:text-2xl">
+                    Gold Prices by Server - Phase 1 2026
+                  </h3>
+                  <p className="mx-auto mb-8 max-w-lg text-center text-sm leading-relaxed text-parchment/50">
+                    Compare TBC Anniversary gold prices across all Phase 1 servers. Click any server for a dedicated landing page with more details.
+                  </p>
+                  <GoldPriceTable />
+                </div>
+              </>
+            )}
 
             {/* Additional pricing table for boosting */}
             {data.additionalPricing && (

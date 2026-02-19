@@ -10,7 +10,7 @@ const services = [
     title: "Gold Selling",
     subtitle: "Outland Riches",
     description:
-      "Stock up on TBC Classic Anniversary Edition gold for your epic flying mount, crafted gear, and consumables. All servers supported with rapid delivery.",
+      "Buy TBC Anniversary gold on Spineshatter, Thunderstrike, and all Phase 1 servers. Cheap TBC fresh gold for epic flying, Karazhan consumables, and crafted gear. Face-to-face delivery in 5-10 minutes.",
     image: "/images/gold-selling.jpg",
     icon: Coins,
     features: ["All TBC Servers", "Instant Delivery", "Best Prices"],
@@ -25,7 +25,7 @@ const services = [
     title: "Character Boosting",
     subtitle: "Outland Power",
     description:
-      "Professional TBC Classic powerleveling and boosting. Full 1-70 leveling, Outland 60-70, profession boosts, pre-raid gear, and PvP honor sets. Done by verified TBC veterans.",
+      "Classic TBC leveling boost 58-70 and full 1-70 powerleveling. Profession boost jewelcrafting 1-375, pre-raid gear farming, arena rating boost, and PvP honor sets. Done by verified TBC veterans on all Phase 1 servers.",
     image: "/images/character-boosting.jpg",
     icon: Sword,
     features: ["Leveling 1-70 / 60-70", "Professions 0-375", "Pre-Raid & PvP Gear"],
@@ -40,7 +40,7 @@ const services = [
     title: "Accounts",
     subtitle: "Battle-Ready Characters",
     description:
-      "Browse our marketplace of 60 pre-built Phase 1 TBC Classic Anniversary characters. Karazhan-geared, professions leveled, and ready for Outland endgame.",
+      "Browse 160 Phase 1 TBC Classic Anniversary characters on Spineshatter, Thunderstrike, and more. Karazhan-attuned, Pre-BiS geared, professions leveled, and ready for Outland endgame.",
     image: "/images/accounts.jpg",
     icon: ScrollText,
     features: ["Level 70 Characters", "Epic Gear", "All Classes"],

@@ -8,6 +8,12 @@ const links = {
     { label: "Character Marketplace", href: "/services/accounts" },
     { label: "Place an Order", href: "/order" },
   ],
+  goldServers: [
+    { label: "Spineshatter Horde Gold", href: "/gold/spineshatter-horde" },
+    { label: "Spineshatter Alliance Gold", href: "/gold/spineshatter-alliance" },
+    { label: "Thunderstrike Horde Gold", href: "/gold/thunderstrike-horde" },
+    { label: "Thunderstrike Alliance Gold", href: "/gold/thunderstrike-alliance" },
+  ],
   support: [
     { label: "FAQ", href: "/#faq" },
     { label: "Contact Us", href: "/order" },
@@ -25,7 +31,7 @@ export function Footer() {
   return (
     <footer className="relative border-t border-fel-green/10 bg-deep-black">
       <div className="mx-auto max-w-7xl px-4 py-12 lg:px-8 lg:py-16">
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Link href="/" className="mb-4 flex items-center gap-2">
@@ -72,6 +78,20 @@ export function Footer() {
             </ul>
           </div>
 
+          {/* Gold Servers */}
+          <div>
+            <h4 className="mb-4 text-[10px] font-bold tracking-[0.3em] text-gold uppercase">Buy Gold</h4>
+            <ul className="flex flex-col gap-2">
+              {links.goldServers.map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href} className="text-xs text-parchment/40 transition-colors hover:text-parchment">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {/* Support */}
           <div>
             <h4 className="mb-4 text-[10px] font-bold tracking-[0.3em] text-gold uppercase">Support</h4>
@@ -103,7 +123,7 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-stone pt-8 sm:flex-row">
           <p className="text-[10px] tracking-wider text-parchment/30 uppercase">
-            {'2024 Exodar Market. All rights reserved.'}
+            {'2026 Exodar Market. All rights reserved.'}
           </p>
           <p className="text-[10px] tracking-wider text-parchment/20 uppercase">
             Not affiliated with Blizzard Entertainment or Activision

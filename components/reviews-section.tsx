@@ -147,9 +147,25 @@ const reviews = [
   },
 ]
 
+const aggregateRatingJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: "Exodar Market - TBC Classic Anniversary Services",
+  description: "Gold, boosting, and account services for WoW TBC Classic Anniversary Edition Phase 1 2026",
+  brand: { "@type": "Brand", name: "Exodar Market" },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.9",
+    reviewCount: String(reviews.length),
+    bestRating: "5",
+    worstRating: "1",
+  },
+}
+
 export function ReviewsSection() {
   return (
     <section id="reviews" className="relative py-24 sm:py-32">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aggregateRatingJsonLd) }} />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-fel-green/20 to-transparent" aria-hidden="true" />
 
       <div className="mx-auto max-w-7xl px-4 lg:px-8">

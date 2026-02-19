@@ -6,8 +6,8 @@ import { Shield, Zap, Clock, Headphones } from "lucide-react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Place Order - Exodar Market | TBC Classic Anniversary",
-  description: "Order WoW TBC Classic Anniversary Edition gold, character boosting, or premium accounts. Fast, secure delivery with 24/7 support.",
+  title: "Order TBC Classic Anniversary Services - Phase 1 2026",
+  description: "Order TBC Anniversary gold, classic TBC leveling boost 58-70, profession boost jewelcrafting 1-375, or Phase 1 accounts. Instant delivery on Spineshatter & Thunderstrike.",
   alternates: {
     canonical: "/order",
   },

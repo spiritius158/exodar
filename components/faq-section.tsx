@@ -6,34 +6,29 @@ import { cn } from "@/lib/utils"
 
 const faqs = [
   {
-    question: "How fast is TBC Classic Anniversary gold delivery?",
+    question: "Is it safe to buy WoW TBC Classic Anniversary gold in 2026?",
     answer:
-      "Most gold deliveries are completed within 5-10 minutes of purchase. We deliver via secure face-to-face trade on your TBC Classic Anniversary server. During peak hours it may take up to 30 minutes.",
+      "Yes, buying TBC Anniversary gold from Exodar Market is safe. We exclusively use face-to-face trades with natural trading patterns that mimic regular player behavior. Across 3,400+ completed orders on servers like Spineshatter and Thunderstrike, we maintain a zero ban rate. Our traders are stationed 24/7 in Shattrath and capital cities for instant, secure delivery.",
   },
   {
-    question: "Which TBC Classic Anniversary servers do you support?",
+    question: "How fast is gold delivery on Spineshatter and Thunderstrike?",
     answer:
-      "We support all TBC Classic Anniversary Edition servers across US, EU, and OCE regions, both Horde and Alliance. This includes all freshly launched Anniversary realms.",
+      "Most gold deliveries on Spineshatter (PvP) and Thunderstrike (PvE) are completed within 5-10 minutes of purchase. We deliver via secure face-to-face trade directly to your character in Orgrimmar, Stormwind, or Shattrath City. During peak hours it may take up to 15 minutes. Nightslayer and Dreamscythe deliveries take 10-30 minutes depending on stock levels.",
   },
   {
-    question: "Is my account safe during boosting?",
+    question: "What is the cheapest way to get TBC Anniversary gold?",
     answer:
-      "Absolutely. We use VPN protection matching your region, play during your normal hours, and follow all safety protocols. We have completed over 50,000 boosts across Classic and TBC with a 99.9% safety record.",
+      "The cheapest TBC fresh gold is available through our bulk discount system. Standard price starts at $0.4626 per 10 gold, but orders over 5,000g receive automatic discounts - perfect for epic flying mount funding (5,000g). We also offer combo deals: buy a character + gold together for an extra discount. Compare all Phase 1 server prices on our gold comparison page.",
   },
   {
-    question: "What payment methods do you accept?",
+    question: "Can I get a level 58-70 boost for TBC Classic Anniversary?",
     answer:
-      "We accept PayPal, all major credit and debit cards, cryptocurrency (BTC, ETH, USDT), and bank transfers. All transactions are encrypted and secure.",
+      "Absolutely! Our classic TBC leveling boost 58-70 is our most popular service, completed in 2-3 days by verified TBC veterans. We also offer full 1-70 powerleveling (3-5 days), Outland 60-70 express leveling, and Karazhan attunement completion. All boosting uses premium VPN protection matching your location with natural play patterns for complete account safety.",
   },
   {
-    question: "Can I buy specific TBC characters from your marketplace?",
+    question: "Is buying Jewelcrafting profession boost 1-375 worth it in Phase 1?",
     answer:
-      "Yes! Our accounts page features 30+ pre-built TBC Classic Anniversary characters spanning all classes and races. Each listing shows gear level, professions, and notable items so you can find exactly what you need.",
-  },
-  {
-    question: "How do account transfers work?",
-    answer:
-      "After purchase, we securely transfer the full Battle.net account credentials through encrypted channels. We guide you through changing the email, password, and authenticator so the account is fully yours.",
+      "Jewelcrafting is one of the most profitable professions in TBC Phase 1 2026. Our profession boost jewelcrafting 1-375 costs $42.99 and saves you 15-20 hours of grinding plus 2,000-3,000g in materials. Jewelers can craft powerful unique-equipped gems (like Delicate Living Ruby) and earn 50-100g per hour cutting gems for other players. We boost all 13 TBC professions at the same price.",
   },
 ]
 

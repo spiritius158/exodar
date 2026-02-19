@@ -47,11 +47,12 @@ export function HeroSection() {
         <div className="mx-auto mb-6 tbc-divider w-48 sm:w-64" aria-hidden="true" />
 
         <p className="mx-auto mb-4 max-w-3xl text-base leading-relaxed text-parchment/70 sm:text-lg font-bold">
-          World of Warcraft: The Burning Crusade Classic Anniversary Edition
+          Buy TBC Anniversary Gold & Boosting - Phase 1 2026
         </p>
         <p className="mx-auto mb-6 max-w-2xl text-sm leading-relaxed text-parchment/50 sm:text-base">
-          Your premier marketplace for TBC Classic gold, expert character boosting,
-          and battle-ready Outland accounts. Step through the Dark Portal with confidence.
+          Buy TBC Anniversary gold on Spineshatter and Thunderstrike. Classic TBC leveling boost 58-70,
+          profession boost jewelcrafting 1-375, and Phase 1 Karazhan-ready accounts.
+          Cheap TBC fresh gold with instant face-to-face delivery.
         </p>
 
         {/* Discord CTA banner */}
