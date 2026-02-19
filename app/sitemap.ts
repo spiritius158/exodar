@@ -50,5 +50,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly' as const,
       priority: 0.85,
     })),
+    // Item/service landing pages
+    ...([
+      'primal-nether-boost',
+      'primal-fire-farming',
+      'talbuk-mount-farm',
+      'cenarion-hippogryph-boost',
+      'eye-of-quagmirran-run',
+      'badge-of-justice-farm',
+      'drums-of-battle-kit',
+      'darkmoon-card-vengeance',
+      'raid-consumables-bulk',
+      'spellstrike-whitemend-craft',
+    ] as const).map((item) => ({
+      url: `${siteUrl}/items/${item}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    })),
   ]
 }

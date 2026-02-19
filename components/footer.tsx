@@ -14,6 +14,13 @@ const links = {
     { label: "Thunderstrike Horde Gold", href: "/gold/thunderstrike-horde" },
     { label: "Thunderstrike Alliance Gold", href: "/gold/thunderstrike-alliance" },
   ],
+  items: [
+    { label: "Primal Nether Boost", href: "/items/primal-nether-boost" },
+    { label: "Spellstrike Craft", href: "/items/spellstrike-whitemend-craft" },
+    { label: "Eye of Quagmirran", href: "/items/eye-of-quagmirran-run" },
+    { label: "Raid Consumables", href: "/items/raid-consumables-bulk" },
+    { label: "Drums of Battle Kit", href: "/items/drums-of-battle-kit" },
+  ],
   support: [
     { label: "FAQ", href: "/#faq" },
     { label: "Contact Us", href: "/order" },

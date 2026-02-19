@@ -7,9 +7,9 @@ import Link from "next/link"
 const navLinks = [
   { label: "Gold", href: "/services/gold" },
   { label: "Boosting", href: "/services/boosting" },
+  { label: "Items", href: "/items/primal-nether-boost" },
   { label: "Characters", href: "/services/accounts" },
   { label: "Reviews", href: "/#reviews" },
-  { label: "FAQ", href: "/#faq" },
 ]
 
 export function Navbar() {
