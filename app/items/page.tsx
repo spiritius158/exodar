@@ -38,7 +38,7 @@ const items: ItemEntry[] = [
     name: "Primal Nether (Heroic Carry)",
     shortName: "Primal Nether",
     category: "Material",
-    icon: "/images/classes/warlock.png",
+    icon: "/images/items/primal-nether.jpg",
     priceRange: "$11.99 - $14.99",
     deliveryTime: "30-60 min",
     tagline: "Guaranteed Primal Nether from Heroic dungeon carry runs.",
