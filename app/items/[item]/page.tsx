@@ -251,7 +251,7 @@ const itemData: Record<ItemKey, ItemData> = {
     serverPrices: { spineshatter: 39.99, thunderstrike: 37.99, nightslayer: 42.99, dreamscythe: 44.99 },
     faq: [
       { q: "What's included in the Leatherworking kit?", a: "All materials for 1-375 Leatherworking including Light Leather through Thick Clefthoof Leather, plus 40x pre-made Drums of Battle and a step-by-step leveling guide." },
-      { q: "Can I buy just the Drums of Battle?", a: "Yes! We sell Drums of Battle separately at $1.49 each or $49.99 for a stack of 40. Bulk pricing for guilds available on Discord." },
+      { q: "Can I buy just the Drums of Battle?", a: "Yes! We sell Drums of Battle separately at $3.99 each or $49.99 for a stack of 40. Bulk pricing for guilds available on Discord." },
       { q: "Is Leatherworking really mandatory for TBC raiding?", a: "For competitive guilds, yes. Drums of Battle provide the strongest group buff in TBC. Most serious raids require every member to have LW." },
     ],
   },

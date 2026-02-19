@@ -54,7 +54,7 @@ const itemCatalog: Record<string, { name: string; pricePerUnit: number; delivery
   "talbuk-mount-farm": { name: "War Talbuk Mount (Rep Grind)", pricePerUnit: 64.99, deliveryTime: "3-5 days", category: "Mount" },
   "cenarion-hippogryph-boost": { name: "Cenarion Hippogryph Mount", pricePerUnit: 89.99, deliveryTime: "5-7 days", category: "Mount" },
   "eye-of-quagmirran-run": { name: "Eye of Quagmirran (Trinket Run)", pricePerUnit: 9.99, deliveryTime: "1-3 hrs", category: "Trinket" },
-  "badge-of-justice-farm": { name: "Badge of Justice Farm", pricePerUnit: 1.49, deliveryTime: "2-6 hrs", category: "Currency" },
+  "badge-of-justice-farm": { name: "Badge of Justice Farm", pricePerUnit: 3.99, deliveryTime: "2-6 hrs", category: "Currency" },
   "drums-of-battle-kit": { name: "Drums of Battle Kit (20x)", pricePerUnit: 34.99, deliveryTime: "1-2 hrs", category: "Consumable" },
   "darkmoon-card-vengeance": { name: "Darkmoon Card: Vengeance", pricePerUnit: 149.99, deliveryTime: "2-5 days", category: "Trinket" },
   "raid-consumables-bulk": { name: "Raid Consumables Bulk Pack", pricePerUnit: 24.99, deliveryTime: "1-3 hrs", category: "Consumable" },
